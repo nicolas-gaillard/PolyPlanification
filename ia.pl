@@ -19,14 +19,15 @@ Enseignant(pdasilva).
 
 /* Groupe d'eleves */
 
-/* Remarques : */
-/* 	- Ajouter liste de groupe incompatible ? */
-/* 	- Ajouter groupe fils ou parent ? */
-
 GroupeEleve(id4).
 GroupeEleve(silr1).
 GroupeEleve(silr2).
-GroupeEleve(info4, [silr1, silr2, id4]).
+GroupeEleve(info4).
+
+/* 
+Si on ajoute la liste des groupes incompatibles : 
+	GroupeEleve(info4, [silr1, silr2, id4]).
+*/
 
 /* Type de cours */
 TypeCours(ds).
@@ -41,7 +42,6 @@ TypeCours(td). 				/* Pas de TD cette semaine mais certaines salles et matières
 /* Salle */
 /* "Prototype" : Salle(nom, capacite, [typeCours]) */
 /* Remarques : */
-/*	- Ecrit comme ça, il me semble que la liste est constante (hors elle peut être amené à être modifié) ? */
 /* 	- Les données sont issues de l'edt */
 /* 	- Est ce qu'on laisse une liste d'un seul type de cours */
 Salle(a1, 350, [cm, ds]).
@@ -64,3 +64,18 @@ Matiere(optimetaheuristiques, [pkuntz], [id4, silr1, silr2]).
 
 /* Contrainte de l'ordonnancement des matières --> liste qui définit l'ordre des matières */
 /* Exemple : [optimetaheuristiques, initiationia, projetia] */
+
+/* Liste de tous les créneaux possibles */
+/* [c1, c2, c3, c4, c5, c6] */
+
+/* .: TEST DE REGLES :. */
+sont_enseignants([X|_]) :- Enseignant(X).
+sont_enseignants([X|Y]) :- Enseignant(X), sont_enseignants(Y).
+
+sont_type_cours([X|_]) :- TypeCours(X).
+sont_type_cours([X|Y]) :- TypeCours(X), sont_type_cours(Y).
+
+est_matiere(A, B, C) :- sont_enseignants(B), sont_type_cours(C).
+
+member(X,[X|_]).
+member(X,[_|T]):- member(X,T).
