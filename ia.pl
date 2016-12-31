@@ -24,10 +24,10 @@ groupeEleve(silr1).
 groupeEleve(silr2).
 groupeEleve(info4).
 
-/* 
-Si on ajoute la liste des groupes incompatibles : 
-	groupeEleve(info4, [silr1, silr2, id4]).
-*/
+/* Si on ajoute la liste des groupes incompatibles */ 
+
+
+
 
 /* Type de cours */
 typeCours(ds).
@@ -123,3 +123,15 @@ est_matiere(A, B, C) :- est_matiere(A,_,_), sont_enseignants(B), sont_type_cours
 
 member(X,[X|_]).
 member(X,[_|T]):- member(X,T).
+
+incompatibilite(info4,Y) :-
+	member(Y,[silr1, silr2, id4, info4]).
+
+incompatibilite(silr1,Y) :-
+	member(Y,[info4, silr1]).
+
+incompatibilite(silr2,Y) :-
+	member(Y,[info4, silr2]).
+
+incompatibilite(id4,Y) :-
+	member(Y,[info4, id4]).
