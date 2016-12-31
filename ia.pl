@@ -91,8 +91,8 @@ seance(ds, comptabilite, [id4], [cgoncalves], a2).
 seance(tp, projetia, [silr1], [hlecapitaine], d117).
 seance(tp, projetia, [silr1], [hlecapitaine], d117).
 seance(cm, reseaux3, [silr1, silr2], [rlehn], d004). /* <-- Non respect de la contrainte */
-/* Seance(projet, ptrans, [silr2, silr1, id4], [], ). */
-/* Seance(projet, ptrans, [silr2, silr1, id4], [], ). */
+Seance(projet, ptrans, [silr2, silr1, id4], []). 
+Seance(projet, ptrans, [silr2, silr1, id4], []). 
 
 seance(cm, gestionconnaissances, [id4], [fbigeard], d117).
 seance(cm, gestionconnaissances, [id4], [fbigeard], d117).
