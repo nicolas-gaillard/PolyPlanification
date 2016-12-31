@@ -117,9 +117,9 @@ sont_enseignants([X|Y]) :- Enseignant(X), sont_enseignants(Y).
 sont_type_cours([X]) :- TypeCours(X).
 sont_type_cours([X|Y]) :- TypeCours(X), sont_type_cours(Y).
 
-est_matiere(A) :- Matiere(A).
+est_matiere(A) :- Matiere(A,_,_).
 est_matiere(A,_,_) :- est_matiere(A).
-est_matiere(A, B, C) :- sont_enseignants(B), sont_type_cours(C).
+est_matiere(A, B, C) :- est_matiere(A,_,_), sont_enseignants(B), sont_type_cours(C).
 
 member(X,[X|_]).
 member(X,[_|T]):- member(X,T).
