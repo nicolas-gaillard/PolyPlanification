@@ -111,13 +111,13 @@ seance(tp, reseaux3, [silr2], [rlehn, fleman], d012).
 /* .: TEST DE REGLES :. */
 classroom(X) :- member(X, [a1, d117, c002, d012, d004, a2, b001]).
 
-sont_enseignants([X]) :- Enseignant(X).
-sont_enseignants([X|Y]) :- Enseignant(X), sont_enseignants(Y).
+sont_enseignants([X]) :- enseignant(X).
+sont_enseignants([X|Y]) :- enseignant(X), sont_enseignants(Y).
 
-sont_type_cours([X]) :- TypeCours(X).
-sont_type_cours([X|Y]) :- TypeCours(X), sont_type_cours(Y).
+sont_type_cours([X]) :- typeCours(X).
+sont_type_cours([X|Y]) :- typeCours(X), sont_type_cours(Y).
 
-est_matiere(A) :- Matiere(A,_,_).
+est_matiere(A) :- matiere(A,_,_).
 est_matiere(A,_,_) :- est_matiere(A).
 est_matiere(A, B, C) :- est_matiere(A,_,_), sont_enseignants(B), sont_type_cours(C).
 
