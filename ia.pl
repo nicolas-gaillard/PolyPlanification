@@ -139,4 +139,5 @@ incompatibilite(id4,Y) :-
 disponibiliteProf(X,Y,C) :- 
 	member(X, Y(_,_,_,_,_,C)).
 
-
+disponibiliteProf(X) :- 
+	enseignant(X), seance(_,_,_,[X|_],_).
