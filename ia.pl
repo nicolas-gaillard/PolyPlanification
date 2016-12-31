@@ -135,3 +135,8 @@ incompatibilite(silr2,Y) :-
 
 incompatibilite(id4,Y) :-
 	member(Y,[info4, id4]).
+
+disponibiliteProf(X,Y,C) :- 
+	member(X, Y(_,_,_,_,_,C)).
+
+
