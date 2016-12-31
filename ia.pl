@@ -71,27 +71,42 @@ Matiere(optimetaheuristiques, [pkuntz], [id4, silr1, silr2]).
 /* Liste de tous les créneaux possibles */
 /* [c1, c2, c3, c4, c5, c6] */
 
-/* Seance */ 
-% Ne prends pas en compte le nombre de répétition de chaque séance 
+/* Modélisation de la semaine 1 de cours des INFO4 */
 % Dans les séances, comment faire apparaitre le type et la capacité de la salle ?? 
 
+% Seance(type, nom, groupes, enseignants, salle, creneau).
 Seance(ds, traitementimg, [silr1, silr2], [jpguedon, mgelgon], a1).
 Seance(tp, projetia, [id4], [hlecapitaine], d117).
+Seance(tp, projetia, [id4], [hlecapitaine], d117).
+Seance(tp, projetia, [silr2], [graschia], c002).
 Seance(tp, projetia, [silr2], [graschia], c002).
 Seance(tp, projetia, [silr1], [bparrein, fleman], d012).
-Seance(cm, reseaux3, [silr1, silr2], [rlehn], d004).
+Seance(tp, projetia, [silr1], [bparrein, fleman], d012).
+Seance(cm, reseaux3, [silr1, silr2], [rlehn], d004). % <-- Non respect de la contrainte 
 
 Seance(tp, reseaux3, [silr1], [bparrein, fleman], d012).
 Seance(tp, reseaux3, [silr2], [rlehn, fleman], d012).
+Seance(tp, reseaux3, [silr2], [rlehn, fleman], d012).
 Seance(ds, comptabilite, [id4], [cgoncalves], a2).
 Seance(tp, projetia, [silr1], [hlecapitaine], d117).
+Seance(tp, projetia, [silr1], [hlecapitaine], d117).
+Seance(cm, reseaux3, [silr1, silr2], [rlehn], d004). % <-- Non respect de la contrainte 
+% Seance(projet, ptrans, [silr2, silr1, id4], [], ).
 % Seance(projet, ptrans, [silr2, silr1, id4], [], ).
 
 Seance(cm, gestionconnaissances, [id4], [fbigeard], d117).
+Seance(cm, gestionconnaissances, [id4], [fbigeard], d117).
+Seance(tp, projetia, [silr1], [hlecapitaine], b001).
 Seance(tp, projetia, [silr1], [hlecapitaine], b001).
 
 Seance(ds, optimetaheuristiques, [id4, silr2, silr1], [pkuntz], a2).
 Seance(reunion, hyblab, [silr2, silr1], [pdasilva], a2).
+Seance(tp, projetia, [silr2], [graschia], c002).
+Seance(tp, projetia, [silr2], [graschia], c002).
+Seance(tp, projetia, [id4], [hlecapitaine], d117).
+Seance(tp, projetia, [id4], [hlecapitaine], d117).
+Seance(tp, reseaux3, [silr2], [rlehn, fleman], d012).
+
 
 /* .: TEST DE REGLES :. */
 classroom(X) :- member(X, [a1, d117, c002, d012, d004, a2, b001]).
