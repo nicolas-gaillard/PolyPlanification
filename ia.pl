@@ -68,39 +68,46 @@ matiere(optimetaheuristiques).
 /* Modélisation de la semaine 1 de cours des INFO4 */
 /* Dans les séances, comment faire apparaitre le type et la capacité de la salle ??  */
 
-/* Seance(type, nom, groupes, enseignants, salle, creneau). */
-seance(ds, traitementimg, [silr1, silr2], [jpguedon, mgelgon], a1).
-seance(tp, projetia, [id4], [hlecapitaine], d117).
-seance(tp, projetia, [id4], [hlecapitaine], d117).
-seance(tp, projetia, [silr2], [graschia], c002).
-seance(tp, projetia, [silr2], [graschia], c002).
-seance(tp, projetia, [silr1], [bparrein, fleman], d012).
-seance(tp, projetia, [silr1], [bparrein, fleman], d012).
-seance(cm, reseaux3, [silr1, silr2], [rlehn], d004). % <-- Non respect de la contrainte 
+/* Seance(id, nom). */
+seance(1, traitementimg, [silr1, silr2], [jpguedon, mgelgon], a1).
+seance(2, projetia, [id4], [hlecapitaine], d117).
+seance(3, projetia, [id4], [hlecapitaine], d117).
+seance(4, projetia, [silr2], [graschia], c002).
+seance(5, projetia, [silr2], [graschia], c002).
+seance(6, projetia, [silr1], [bparrein, fleman], d012).
+seance(7, projetia, [silr1], [bparrein, fleman], d012).
+seance(8, reseaux3, [silr1, silr2], [rlehn], d004). % <-- Non respect de la contrainte 
 
-seance(tp, reseaux3, [silr1], [bparrein, fleman], d012).
-seance(tp, reseaux3, [silr2], [rlehn, fleman], d012).
-seance(tp, reseaux3, [silr2], [rlehn, fleman], d012).
-seance(ds, comptabilite, [id4], [cgoncalves], a2).
-seance(tp, projetia, [silr1], [hlecapitaine], d117).
-seance(tp, projetia, [silr1], [hlecapitaine], d117).
-seance(cm, reseaux3, [silr1, silr2], [rlehn], d004). /* <-- Non respect de la contrainte */
-seance(projet, ptrans, [silr2, silr1, id4], []). 
-seance(projet, ptrans, [silr2, silr1, id4], []). 
+seance(9, reseaux3, [silr1], [bparrein, fleman], d012).
+seance(10, reseaux3, [silr2], [rlehn, fleman], d012).
+seance(11, reseaux3, [silr2], [rlehn, fleman], d012).
+seance(12, comptabilite, [id4], [cgoncalves], a2).
+seance(13, projetia, [silr1], [hlecapitaine], d117).
+seance(14, projetia, [silr1], [hlecapitaine], d117).
+seance(15, reseaux3, [silr1, silr2], [rlehn], d004). /* <-- Non respect de la contrainte */
+seance(16, ptrans, [silr2, silr1, id4], []). 
+seance(17, ptrans, [silr2, silr1, id4], []). 
 
-seance(cm, gestionconnaissances, [id4], [fbigeard], d117).
-seance(cm, gestionconnaissances, [id4], [fbigeard], d117).
-seance(tp, projetia, [silr1], [hlecapitaine], b001).
-seance(tp, projetia, [silr1], [hlecapitaine], b001).
+seance(18, gestionconnaissances, [id4], [fbigeard], d117).
+seance(19, gestionconnaissances, [id4], [fbigeard], d117).
+seance(20, projetia, [silr1], [hlecapitaine], b001).
+seance(21, projetia, [silr1], [hlecapitaine], b001).
 
-seance(ds, optimetaheuristiques, [id4, silr2, silr1], [pkuntz], a2).
-seance(reunion, hyblab, [silr2, silr1], [pdasilva], a2).
-seance(tp, projetia, [silr2], [graschia], c002).
-seance(tp, projetia, [silr2], [graschia], c002).
-seance(tp, projetia, [id4], [hlecapitaine], d117).
-seance(tp, projetia, [id4], [hlecapitaine], d117).
-seance(tp, reseaux3, [silr2], [rlehn, fleman], d012).
+seance(22, optimetaheuristiques, [id4, silr2, silr1], [pkuntz], a2).
+seance(23, hyblab, [silr2, silr1], [pdasilva], a2).
+seance(24, projetia, [silr2], [graschia], c002).
+seance(25, projetia, [silr2], [graschia], c002).
+seance(26, projetia, [id4], [hlecapitaine], d117).
+seance(27, projetia, [id4], [hlecapitaine], d117).
+seance(28, reseaux3, [silr2], [rlehn, fleman], d012).
 
+% Seance (id) - groupe d'élèves
+assiste(silr1, 1).
+
+% Seance (id) - enseignants
+
+
+% La salle ne va plus être présentes en dur
 
 % Association :
 % -------------
@@ -157,6 +164,39 @@ etudie(silr1, optimetaheuristiques).
 etudie(silr2, optimetaheuristiques).
 etudie(id4, optimetaheuristiques).
 etudie(info4, optimetaheuristiques).
+
+% Seance (id) - type de cours 
+typeSeance(1, ds).
+typeSeance(2, tp).
+typeSeance(3, tp).
+typeSeance(4, tp).
+typeSeance(5, tp).
+typeSeance(6, tp).
+typeSeance(7, tp).
+typeSeance(8, cm).
+
+typeSeance(9, tp).
+typeSeance(10, tp).
+typeSeance(11, tp).
+typeSeance(12, ds).
+typeSeance(13, tp).
+typeSeance(14, tp).
+typeSeance(15, cm).
+typeSeance(16, projet).
+typeSeance(17, projet).
+
+typeSeance(18, cm).
+typeSeance(19, cm).
+typeSeance(20, tp).
+typeSeance(21, tp).
+
+typeSeance(22, ds).
+typeSeance(23, reunion).
+typeSeance(24, tp).
+typeSeance(25, tp).
+typeSeance(26, tp).
+typeSeance(27, tp).
+typeSeance(28, tp).
 
 /* .: TEST DE REGLES :. */
 classroom(X) :- member(X, [a1, d117, c002, d012, d004, a2, b001]).
