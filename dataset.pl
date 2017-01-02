@@ -126,6 +126,47 @@ creneau(c28).
 creneau(c29).
 creneau(c30).
 
+% liste des jours travaillés 
+
+jours(j1).
+jours(j2).
+jours(j3).
+jours(j4).
+jours(j5).
+
+% relations jours - créneaux
+
+estDans(c1,j1).
+estDans(c2,j1).
+estDans(c3,j1).
+estDans(c4,j1).
+estDans(c5,j1).
+estDans(c6,j1).
+estDans(c7,j2).
+estDans(c8,j2).
+estDans(c9,j2).
+estDans(c10,j2).
+estDans(c11,j2).
+estDans(c12,j2).
+estDans(c13,j3).
+estDans(c14,j3).
+estDans(c15,j3).
+estDans(c16,j3).
+estDans(c17,j3).
+estDans(c18,j3).
+estDans(c19,j4).
+estDans(c20,j4).
+estDans(c21,j4).
+estDans(c22,j4).
+estDans(c23,j4).
+estDans(c24,j4).
+estDans(c25,j5).
+estDans(c26,j5).
+estDans(c27,j5).
+estDans(c28,j5).
+estDans(c29,j5).
+estDans(c30,j5).
+
 % -------------
 % Association :
 % -------------
