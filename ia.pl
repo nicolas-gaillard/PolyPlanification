@@ -188,6 +188,26 @@ typeSeance(s26, tp).
 typeSeance(s27, tp).
 typeSeance(s28, tp).
 
+/* relation sur l'ordonnancement des scéances d'une même matière suivant
+ un temps d'assimilation (par défaut le nb de scéances min étant de 6 et le
+ mac de 24) */
+
+suit(s3,s2,0,18).
+suit(s5,s4,0,18).
+suit(s7,s6,0,18).
+suit(s9,s8,0,18).
+suit(s10,s8,6,18).
+suit(s11,s10,0,18).
+suit(s13,s7,6,18).
+suit(s14,s13,0,18).
+suit(s15,s11,6,18).
+suit(s15,s9,6,18).
+suit(s19,s18,0,18).
+suit(s21,s20,0,18).
+suit(s25,s24,0,24).
+suit(s27,s26,0,24).
+suit(s28,s15,6,24).
+
 % Seance (id) - groupe d'élèves 
 assiste(silr1,s1).
 assiste(silr2,s1).
