@@ -106,7 +106,7 @@ seance(26, projetia, [id4], [hlecapitaine], d117).
 seance(27, projetia, [id4], [hlecapitaine], d117).
 seance(28, reseaux3, [silr2], [rlehn, fleman], d012).
 
-/* Seance (id) - groupe d'élèves */
+% Seance (id) - groupe d'élèves 
 
 assiste(silr1,1).
 assiste(silr2,1).
@@ -147,6 +147,40 @@ assiste(id4,27).
 assiste(silr2,28).
 
 % Seance (id) - enseignants
+
+anime(1,jpguedon).
+anime(1,mgelgon).
+anime(2,hlecapitaine).
+anime(3,hlecapitaine).
+anime(4,graschia).
+anime(5,graschia).
+anime(6,bparrein).
+anime(6,fleman).
+anime(7,bparrein).
+anime(7,fleman).
+anime(8,rlehn).
+anime(9,bparrein).
+anime(9,fleman).
+anime(10,rlehn).
+anime(10,fleman).
+anime(11,rlehn).
+anime(11,fleman).
+anime(12,cgoncalves).
+anime(13,hlecapitaine).
+anime(14,hlecapitaine).
+anime(15,rlehn).
+anime(18,fbigeard).
+anime(19,fbigeard).
+anime(20,hlecapitaine).
+anime(21,hlecapitaine).
+anime(22,pkuntz).
+anime(23,pdasilva).
+anime(24,graschia).
+anime(25,graschia).
+anime(26,hlecapitaine).
+anime(27,hlecapitaine).
+anime(28,rlehn).
+anime(28,fleman).
 
 
 % La salle ne va plus être présentes en dur
