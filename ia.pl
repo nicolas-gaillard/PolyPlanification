@@ -99,6 +99,40 @@ seance(s26).
 seance(s27).
 seance(s28).
 
+% liste des créneaux 
+
+creneau(c1).
+creneau(c2).
+creneau(c3).
+creneau(c4).
+creneau(c5).
+creneau(c6).
+creneau(c7).
+creneau(c8).
+creneau(c9).
+creneau(c10).
+creneau(c11).
+creneau(c12).
+creneau(c13).
+creneau(c14).
+creneau(c15).
+creneau(c16).
+creneau(c17).
+creneau(c18).
+creneau(c19).
+creneau(c20).
+creneau(c21).
+creneau(c22).
+creneau(c23).
+creneau(c24).
+creneau(c25).
+creneau(c26).
+creneau(c27).
+creneau(c28).
+creneau(c29).
+creneau(c30).
+
+
 % -------------
 % Association :
 % -------------
@@ -327,7 +361,7 @@ sont_type_cours([X|Y]) :- typeCours(X), sont_type_cours(Y).
 
 est_matiere(A) :- matiere(A,_,_).
 est_matiere(A,_,_) :- est_matiere(A).
-est_matiere(A, B, C) :- est_matiere(A,_,_), sont_enseignants(B), sont_type_cours(C).
+est_matiere(A, B, C1) :- est_matiere(A,_,_), sont_enseignants(B), sont_type_cours(C1).
 
 member(X,[X|_]).
 member(X,[_|T]):- member(X,T).
@@ -344,7 +378,7 @@ incompatibilite(silr2,Y) :-
 incompatibilite(id4,Y) :-
 	member(Y,[info4, id4]).
 
-disponibiliteProf(X,Y,C) :- 
+disponibiliteProf(X,Y,C1) :- 
 	member(X, Y(_,_,_,_,_,C)).
 
 disponibiliteProf(X) :- 
