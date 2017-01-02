@@ -54,13 +54,18 @@ salle(b001, 15).
 matiere(traitementimg).
 matiere(projetia).
 matiere(reseaux3).
+matiere(ia).
 matiere(comptabilite).
 matiere(ptrans).
 matiere(gestionconnaissances).
 matiere(optimetaheuristiques).
+matiere(analysedonnees).
 
 /* Contrainte de l'ordonnancement des matières --> liste qui définit l'ordre des matières */
 /* Exemple : [optimetaheuristiques, initiationia, projetia] */
+
+precede(ia,projetia).
+precede(analysedonnees,optimetaheuristiques).
 
 /* Liste de tous les créneaux possibles */
 /* [c1, c2, c3, c4, c5, c6] */
@@ -101,8 +106,45 @@ seance(26, projetia, [id4], [hlecapitaine], d117).
 seance(27, projetia, [id4], [hlecapitaine], d117).
 seance(28, reseaux3, [silr2], [rlehn, fleman], d012).
 
-% Seance (id) - groupe d'élèves
-assiste(silr1, 1).
+/* Seance (id) - groupe d'élèves */
+
+assiste(silr1,1).
+assiste(silr2,1).
+assiste(id4,2).
+assiste(id4,3).
+assiste(silr2,4).
+assiste(silr2,5).
+assiste(silr1,6).
+assiste(silr1,7).
+assiste(silr1,8).
+assiste(silr2,8).
+assiste(silr1,9).
+assiste(silr2,10).
+assiste(silr2,11).
+assiste(id4,12).
+assiste(silr1,13).
+assiste(silr1,14).
+assiste(silr1,15).
+assiste(silr1,16).
+assiste(silr2,16).
+assiste(id4,16).
+assiste(silr1,17).
+assiste(silr2,17).
+assiste(id4,17).
+assiste(id4,18).
+assiste(id4,19).
+assiste(silr1,20).
+assiste(silr1,21).
+assiste(id4,22).
+assiste(silr1,22).
+assiste(silr2,22).
+assiste(silr1,23).
+assiste(silr2,23).
+assiste(silr2,24).
+assiste(silr2,25).
+assiste(id4,26).
+assiste(id4,27).
+assiste(silr2,28).
 
 % Seance (id) - enseignants
 
