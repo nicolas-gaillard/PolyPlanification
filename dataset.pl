@@ -49,7 +49,7 @@ taille(d004, 65).
 taille(a2, 160).
 taille(b001, 15).
 
-% Type de cours (ou Usages) 
+% Type de cours (ou usages) 
 typeCours(ds).
 typeCours(mp).
 typeCours(dsmachine).
@@ -287,7 +287,7 @@ assiste(id4,s26).
 assiste(id4,s27).
 assiste(silr2,s28).
 
-% Seance (id) - Enseignants :
+% Seance (id) - Enseignant :
 anime(s1,jpguedon).
 anime(s1,mgelgon).
 anime(s2,hlecapitaine).
@@ -322,7 +322,7 @@ anime(s27,hlecapitaine).
 anime(s28,rlehn).
 anime(s28,fleman).
 
-% Seance - matière :
+% Seance - Matière :
 estEnseigne(s1, traitementimg).
 estEnseigne(s2, projetia).
 estEnseigne(s3, projetia).
@@ -356,7 +356,7 @@ estEnseigne(s28, reseaux3).
 precedeMatiere(ia,projetia).
 precedeMatiere(analysedonnees,optimetaheuristiques).
 
-% Jours travaillé - créneaux
+% Jours travaillé - Créneau
 estDans(c1,j1).
 estDans(c2,j1).
 estDans(c3,j1).
