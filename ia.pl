@@ -2,6 +2,10 @@
 /* Base de faits */
 /* ############# */
 
+/* Remarques :
+	- Les données sont issues de l'emploie du temps et de Madoc
+*/
+
 /* Enseignants */
 
 enseignant(graschia).
@@ -24,12 +28,8 @@ groupeEleve(silr1).
 groupeEleve(silr2).
 groupeEleve(info4).
 
-/* Si on ajoute la liste des groupes incompatibles */ 
 
-
-
-
-/* Type de cours */
+/* Type de cours (ou Usages) */
 typeCours(ds).
 typeCours(mp).
 typeCours(dsmachine).
@@ -37,33 +37,27 @@ typeCours(tp).
 typeCours(reunion).
 typeCours(cm).
 typeCours(projet).
-typeCours(td). 				/* Pas de TD cette semaine mais certaines salles et matières ont des TD */
 
 /* Salle */
-/* "Prototype" : Salle(nom, capacite, [typeCours]) */
-/* Remarques : */
-/* 	- Les données sont issues de l'edt */
-/* 	- Est ce qu'on laisse une liste d'un seul type de cours */
-salle(a1, 350, [cm, ds]).
-salle(d117, 24, [cm, tp]).
-salle(c002, 13, [tp]).
-salle(d012, 24, [tp]).
-salle(d004, 65, [cm]).
-salle(a2, 160, [cm, ds]).
-salle(b001, 15, [tp, dsmachine, mp]).
+/* "Prototype" : Salle(id/nom, capacite) */
+salle(a1, 350).
+salle(d117, 24).
+salle(c002, 13).
+salle(d012, 24).
+salle(d004, 65).
+salle(a2, 160).
+salle(b001, 15).
 
 /* Matieres */
-/* "Prototype" : Matiere(nom, enseignant, groupe) */
+/* "Prototype" : Matiere(nom) */
 
-/* Est ce qu'on retire les professeurs et groupe de chaque matière ? Si oui faut virer l'association. */
-
-matiere(traitementimg, [mgelgon, jpguedon], [silr2, silr1]).
-matiere(projetia, [hlecapitaine, graschia, bparrein, fleman], [id4, silr1, silr2]).
-matiere(reseaux3, [rlehn], [silr2, silr1]).
-matiere(comptabilite, [cgoncalves], [id4]).
-matiere(ptrans, [], [id4, silr1, silr2]).
-matiere(gestionconnaissances, [fbigeard], [id4]).
-matiere(optimetaheuristiques, [pkuntz], [id4, silr1, silr2]).
+matiere(traitementimg).
+matiere(projetia).
+matiere(reseaux3).
+matiere(comptabilite).
+matiere(ptrans).
+matiere(gestionconnaissances).
+matiere(optimetaheuristiques).
 
 /* Contrainte de l'ordonnancement des matières --> liste qui définit l'ordre des matières */
 /* Exemple : [optimetaheuristiques, initiationia, projetia] */
@@ -107,6 +101,62 @@ seance(tp, projetia, [id4], [hlecapitaine], d117).
 seance(tp, projetia, [id4], [hlecapitaine], d117).
 seance(tp, reseaux3, [silr2], [rlehn, fleman], d012).
 
+
+% Association :
+% -------------
+
+% Les associations entre les différentes relations se traduisent par des prédicats.
+
+% Incompatibilité entre deux groupes :
+estIncompatible(info, id4).
+estIncompatible(info, silr1).
+estIncompatible(info, silr2).
+
+% Usage des salles :
+usageSalle(a1, cm).
+usageSalle(a1, ds).
+usageSalle(d117, cm).
+usageSalle(d117, tp).
+usageSalle(c002, tp).
+usageSalle(d012, tp).
+usageSalle(d004, cm).
+usageSalle(a2, cm).
+usageSalle(a2, ds).
+usageSalle(b001, tp).
+usageSalle(b001, dsmachine).
+usageSalle(b001, mp).
+
+% Enseignant - Matière 
+enseigne(mgelgon, traitementimg).
+enseigne(jpguedon, traitementimg).
+enseigne(hlecapitaine, projetia).
+enseigne(graschia, projetia).
+enseigne(bparrein, projetia).
+enseigne(fleman, projetia).
+enseigne(rlehn, reseaux3).
+enseigne(cgoncalves, comptabilite).
+enseigne(fbigeard, gestionconnaissances).
+enseigne(pkuntz, optimetaheuristiques).
+
+% Matière - groupe d'élèves
+etudie(silr1, traitementimg).
+etudie(silr2, traitementimg).
+etudie(silr1, projetia).
+etudie(silr2, projetia).
+etudie(id4, projetia).
+etudie(info4, projetia).
+etudie(silr1, reseaux3).
+etudie(silr2, reseaux3).
+etudie(id4, comptabilite).
+etudie(silr1, ptrans).
+etudie(silr2, ptrans).
+etudie(id4, ptrans).
+etudie(info4, ptrans).
+etudie(id4, gestionconnaissances).
+etudie(silr1, optimetaheuristiques).
+etudie(silr2, optimetaheuristiques).
+etudie(id4, optimetaheuristiques).
+etudie(info4, optimetaheuristiques).
 
 /* .: TEST DE REGLES :. */
 classroom(X) :- member(X, [a1, d117, c002, d012, d004, a2, b001]).
