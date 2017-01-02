@@ -77,22 +77,20 @@ seance(s4).
 seance(s5).
 seance(s6).
 seance(s7).
-seance(s8). % <-- Non respect de la contrainte 
+seance(s8). % <-- Non respect de la contrainte (CM sur créneau 6)
 seance(s9).
 seance(s10).
 seance(s11).
 seance(s12).
 seance(s13).
 seance(s14).
-seance(s15). /* <-- Non respect de la contrainte */
+seance(s15). % <-- Non respect de la contrainte (CM sur créneau 6)
 seance(s16).
 seance(s17).
-
 seance(s18).
 seance(s19).
 seance(s20).
 seance(s21).
-
 seance(s22).
 seance(s23).
 seance(s24).
@@ -188,25 +186,25 @@ typeSeance(s26, tp).
 typeSeance(s27, tp).
 typeSeance(s28, tp).
 
-/* relation sur l'ordonnancement des scéances d'une même matière suivant
+/* Relation sur l'ordonnancement des scéances d'une même matière suivant
  un temps d'assimilation (par défaut le nb de scéances min étant de 6 et le
- mac de 24) */
+ max de 24) */
 
-suit(s3,s2,0,18).
-suit(s5,s4,0,18).
-suit(s7,s6,0,18).
-suit(s9,s8,0,18).
-suit(s10,s8,6,18).
-suit(s11,s10,0,18).
-suit(s13,s7,6,18).
-suit(s14,s13,0,18).
-suit(s15,s11,6,18).
-suit(s15,s9,6,18).
-suit(s19,s18,0,18).
-suit(s21,s20,0,18).
-suit(s25,s24,0,24).
-suit(s27,s26,0,24).
-suit(s28,s15,6,24).
+suitSeance(s3,s2,0,18).
+suitSeance(s5,s4,0,18).
+suitSeance(s7,s6,0,18).
+suitSeance(s9,s8,0,18).
+suitSeance(s10,s8,6,18).
+suitSeance(s11,s10,0,18).
+suitSeance(s13,s7,6,18).
+suitSeance(s14,s13,0,18).
+suitSeance(s15,s11,6,18).
+suitSeance(s15,s9,6,18).
+suitSeance(s19,s18,0,18).
+suitSeance(s21,s20,0,18).
+suitSeance(s25,s24,0,24).
+suitSeance(s27,s26,0,24).
+suitSeance(s28,s15,6,24).
 
 % Seance (id) - groupe d'élèves 
 assiste(silr1,s1).
@@ -313,8 +311,8 @@ estEnseigne(s27, projetia).
 estEnseigne(s28, reseaux3).
 
 % Contrainte de l'ordonnancement des matières 
-precede(ia,projetia).
-precede(analysedonnees,optimetaheuristiques).
+precedeMatiere(ia,projetia).
+precedeMatiere(analysedonnees,optimetaheuristiques).
 
 % ####################
 % .: TEST DE REGLES :.
