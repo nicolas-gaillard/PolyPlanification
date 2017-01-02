@@ -26,6 +26,13 @@ groupeEleve(silr1).
 groupeEleve(silr2).
 groupeEleve(info4).
 
+/* Taille des groupes (arbitraire) */
+
+taille(id4, 25).
+taille(silr1, 25).
+taille(silr2, 25).
+taille(info4, 75).
+
 
 /* Type de cours (ou Usages) */
 typeCours(ds).
