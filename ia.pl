@@ -2,12 +2,11 @@
 /* Base de faits */
 /* ############# */
 
-/* Remarques :
-	- Les données sont issues de l'emploie du temps et de Madoc
-*/
+% ----------------
+% Jeu de données :
+% ----------------
 
 /* Enseignants */
-
 enseignant(graschia).
 enseignant(hlecapitaine).
 enseignant(mgelgon).
@@ -22,7 +21,6 @@ enseignant(pkuntz).
 enseignant(pdasilva).
 
 /* Groupe d'eleves */
-
 groupeEleve(id4).
 groupeEleve(silr1).
 groupeEleve(silr2).
@@ -49,8 +47,7 @@ salle(a2, 160).
 salle(b001, 15).
 
 /* Matieres */
-/* "Prototype" : Matiere(nom) */
-
+/* "Prototype" : Matiere(id) */
 matiere(traitementimg).
 matiere(projetia).
 matiere(reseaux3).
@@ -61,130 +58,43 @@ matiere(gestionconnaissances).
 matiere(optimetaheuristiques).
 matiere(analysedonnees).
 
-/* Contrainte de l'ordonnancement des matières --> liste qui définit l'ordre des matières */
-/* Exemple : [optimetaheuristiques, initiationia, projetia] */
-
-precede(ia,projetia).
-precede(analysedonnees,optimetaheuristiques).
-
 /* Liste de tous les créneaux possibles */
 /* [c1, c2, c3, c4, c5, c6] */
 
 /* Modélisation de la semaine 1 de cours des INFO4 */
-/* Dans les séances, comment faire apparaitre le type et la capacité de la salle ??  */
+/* Seance(id). */
+seance(s1).
+seance(s2).
+seance(s3).
+seance(s4).
+seance(s5).
+seance(s6).
+seance(s7).
+seance(s8). % <-- Non respect de la contrainte 
+seance(s9).
+seance(s10).
+seance(s11).
+seance(s12).
+seance(s13).
+seance(s14).
+seance(s15). /* <-- Non respect de la contrainte */
+seance(s16).
+seance(s17).
 
-/* Seance(id, nom). */
-seance(1, traitementimg, [silr1, silr2], [jpguedon, mgelgon], a1).
-seance(2, projetia, [id4], [hlecapitaine], d117).
-seance(3, projetia, [id4], [hlecapitaine], d117).
-seance(4, projetia, [silr2], [graschia], c002).
-seance(5, projetia, [silr2], [graschia], c002).
-seance(6, projetia, [silr1], [bparrein, fleman], d012).
-seance(7, projetia, [silr1], [bparrein, fleman], d012).
-seance(8, reseaux3, [silr1, silr2], [rlehn], d004). % <-- Non respect de la contrainte 
+seance(s18).
+seance(s19).
+seance(s20).
+seance(s21).
 
-seance(9, reseaux3, [silr1], [bparrein, fleman], d012).
-seance(10, reseaux3, [silr2], [rlehn, fleman], d012).
-seance(11, reseaux3, [silr2], [rlehn, fleman], d012).
-seance(12, comptabilite, [id4], [cgoncalves], a2).
-seance(13, projetia, [silr1], [hlecapitaine], d117).
-seance(14, projetia, [silr1], [hlecapitaine], d117).
-seance(15, reseaux3, [silr1, silr2], [rlehn], d004). /* <-- Non respect de la contrainte */
-seance(16, ptrans, [silr2, silr1, id4], []). 
-seance(17, ptrans, [silr2, silr1, id4], []). 
+seance(s22).
+seance(s23).
+seance(s24).
+seance(s25).
+seance(s26).
+seance(s27).
+seance(s28).
 
-seance(18, gestionconnaissances, [id4], [fbigeard], d117).
-seance(19, gestionconnaissances, [id4], [fbigeard], d117).
-seance(20, projetia, [silr1], [hlecapitaine], b001).
-seance(21, projetia, [silr1], [hlecapitaine], b001).
-
-seance(22, optimetaheuristiques, [id4, silr2, silr1], [pkuntz], a2).
-seance(23, hyblab, [silr2, silr1], [pdasilva], a2).
-seance(24, projetia, [silr2], [graschia], c002).
-seance(25, projetia, [silr2], [graschia], c002).
-seance(26, projetia, [id4], [hlecapitaine], d117).
-seance(27, projetia, [id4], [hlecapitaine], d117).
-seance(28, reseaux3, [silr2], [rlehn, fleman], d012).
-
-% Seance (id) - groupe d'élèves 
-
-assiste(silr1,1).
-assiste(silr2,1).
-assiste(id4,2).
-assiste(id4,3).
-assiste(silr2,4).
-assiste(silr2,5).
-assiste(silr1,6).
-assiste(silr1,7).
-assiste(silr1,8).
-assiste(silr2,8).
-assiste(silr1,9).
-assiste(silr2,10).
-assiste(silr2,11).
-assiste(id4,12).
-assiste(silr1,13).
-assiste(silr1,14).
-assiste(silr1,15).
-assiste(silr1,16).
-assiste(silr2,16).
-assiste(id4,16).
-assiste(silr1,17).
-assiste(silr2,17).
-assiste(id4,17).
-assiste(id4,18).
-assiste(id4,19).
-assiste(silr1,20).
-assiste(silr1,21).
-assiste(id4,22).
-assiste(silr1,22).
-assiste(silr2,22).
-assiste(silr1,23).
-assiste(silr2,23).
-assiste(silr2,24).
-assiste(silr2,25).
-assiste(id4,26).
-assiste(id4,27).
-assiste(silr2,28).
-
-% Seance (id) - enseignants
-
-anime(1,jpguedon).
-anime(1,mgelgon).
-anime(2,hlecapitaine).
-anime(3,hlecapitaine).
-anime(4,graschia).
-anime(5,graschia).
-anime(6,bparrein).
-anime(6,fleman).
-anime(7,bparrein).
-anime(7,fleman).
-anime(8,rlehn).
-anime(9,bparrein).
-anime(9,fleman).
-anime(10,rlehn).
-anime(10,fleman).
-anime(11,rlehn).
-anime(11,fleman).
-anime(12,cgoncalves).
-anime(13,hlecapitaine).
-anime(14,hlecapitaine).
-anime(15,rlehn).
-anime(18,fbigeard).
-anime(19,fbigeard).
-anime(20,hlecapitaine).
-anime(21,hlecapitaine).
-anime(22,pkuntz).
-anime(23,pdasilva).
-anime(24,graschia).
-anime(25,graschia).
-anime(26,hlecapitaine).
-anime(27,hlecapitaine).
-anime(28,rlehn).
-anime(28,fleman).
-
-
-% La salle ne va plus être présentes en dur
-
+% -------------
 % Association :
 % -------------
 
@@ -242,39 +152,146 @@ etudie(id4, optimetaheuristiques).
 etudie(info4, optimetaheuristiques).
 
 % Seance (id) - type de cours 
-typeSeance(1, ds).
-typeSeance(2, tp).
-typeSeance(3, tp).
-typeSeance(4, tp).
-typeSeance(5, tp).
-typeSeance(6, tp).
-typeSeance(7, tp).
-typeSeance(8, cm).
+typeSeance(s1, ds).
+typeSeance(s2, tp).
+typeSeance(s3, tp).
+typeSeance(s4, tp).
+typeSeance(s5, tp).
+typeSeance(s6, tp).
+typeSeance(s7, tp).
+typeSeance(s8, cm).
+typeSeance(s9, tp).
+typeSeance(s10, tp).
+typeSeance(s11, tp).
+typeSeance(s12, ds).
+typeSeance(s13, tp).
+typeSeance(s14, tp).
+typeSeance(s15, cm).
+typeSeance(s16, projet).
+typeSeance(s17, projet).
+typeSeance(s18, cm).
+typeSeance(s19, cm).
+typeSeance(s20, tp).
+typeSeance(s21, tp).
+typeSeance(s22, ds).
+typeSeance(s23, reunion).
+typeSeance(s24, tp).
+typeSeance(s25, tp).
+typeSeance(s26, tp).
+typeSeance(s27, tp).
+typeSeance(s28, tp).
 
-typeSeance(9, tp).
-typeSeance(10, tp).
-typeSeance(11, tp).
-typeSeance(12, ds).
-typeSeance(13, tp).
-typeSeance(14, tp).
-typeSeance(15, cm).
-typeSeance(16, projet).
-typeSeance(17, projet).
+% Seance (id) - groupe d'élèves 
+assiste(silr1,s1).
+assiste(silr2,s1).
+assiste(id4,s2).
+assiste(id4,s3).
+assiste(silr2,s4).
+assiste(silr2,s5).
+assiste(silr1,s6).
+assiste(silr1,s7).
+assiste(silr1,s8).
+assiste(silr2,s8).
+assiste(silr1,s9).
+assiste(silr2,s10).
+assiste(silr2,s11).
+assiste(id4,s12).
+assiste(silr1,s13).
+assiste(silr1,s14).
+assiste(silr1,s15).
+assiste(silr1,s16).
+assiste(silr2,s16).
+assiste(id4,s16).
+assiste(silr1,s17).
+assiste(silr2,s17).
+assiste(id4,s17).
+assiste(id4,s18).
+assiste(id4,s19).
+assiste(silr1,s20).
+assiste(silr1,s21).
+assiste(id4,s22).
+assiste(silr1,s22).
+assiste(silr2,s22).
+assiste(silr1,s23).
+assiste(silr2,s23).
+assiste(silr2,s24).
+assiste(silr2,s25).
+assiste(id4,s26).
+assiste(id4,s27).
+assiste(silr2,s28).
 
-typeSeance(18, cm).
-typeSeance(19, cm).
-typeSeance(20, tp).
-typeSeance(21, tp).
+% Seance (id) - enseignants
+anime(s1,jpguedon).
+anime(s1,mgelgon).
+anime(s2,hlecapitaine).
+anime(s3,hlecapitaine).
+anime(s4,graschia).
+anime(s5,graschia).
+anime(s6,bparrein).
+anime(s6,fleman).
+anime(s7,bparrein).
+anime(s7,fleman).
+anime(s8,rlehn).
+anime(s9,bparrein).
+anime(s9,fleman).
+anime(s10,rlehn).
+anime(s10,fleman).
+anime(s11,rlehn).
+anime(s11,fleman).
+anime(s12,cgoncalves).
+anime(s13,hlecapitaine).
+anime(s14,hlecapitaine).
+anime(s15,rlehn).
+anime(s18,fbigeard).
+anime(s19,fbigeard).
+anime(s20,hlecapitaine).
+anime(s21,hlecapitaine).
+anime(s22,pkuntz).
+anime(s23,pdasilva).
+anime(s24,graschia).
+anime(s25,graschia).
+anime(s26,hlecapitaine).
+anime(s27,hlecapitaine).
+anime(s28,rlehn).
+anime(s28,fleman).
 
-typeSeance(22, ds).
-typeSeance(23, reunion).
-typeSeance(24, tp).
-typeSeance(25, tp).
-typeSeance(26, tp).
-typeSeance(27, tp).
-typeSeance(28, tp).
+% Seance - matière 
+estEnseigne(s1, traitementimg).
+estEnseigne(s2, projetia).
+estEnseigne(s3, projetia).
+estEnseigne(s4, projetia).
+estEnseigne(s5, projetia).
+estEnseigne(s6, projetia).
+estEnseigne(s7, projetia).
+estEnseigne(s8, reseaux3).
+estEnseigne(s9, reseaux3).
+estEnseigne(s10, reseaux3).
+estEnseigne(s11, reseaux3).
+estEnseigne(s12, comptabilite).
+estEnseigne(s13, projetia).
+estEnseigne(s14, projetia).
+estEnseigne(s15, reseaux3).
+estEnseigne(s16, ptrans).
+estEnseigne(s17, ptrans).
+estEnseigne(s18, gestionconnaissances).
+estEnseigne(s19, gestionconnaissances).
+estEnseigne(s20, projetia).
+estEnseigne(s21, projetia).
+estEnseigne(s22, optimetaheuristiques).
+estEnseigne(s23, hyblab).
+estEnseigne(s24, projetia).
+estEnseigne(s25, projetia).
+estEnseigne(s26, projetia).
+estEnseigne(s27, projetia).
+estEnseigne(s28, reseaux3).
 
-/* .: TEST DE REGLES :. */
+% Contrainte de l'ordonnancement des matières 
+precede(ia,projetia).
+precede(analysedonnees,optimetaheuristiques).
+
+% ####################
+% .: TEST DE REGLES :.
+% ####################
 classroom(X) :- member(X, [a1, d117, c002, d012, d004, a2, b001]).
 
 sont_enseignants([X]) :- enseignant(X).
