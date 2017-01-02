@@ -26,11 +26,28 @@ groupeEleve(silr1).
 groupeEleve(silr2).
 groupeEleve(info4).
 
-% Taille des groupes (arbitraire)
+% Salles 
+/* "Prototype" : Salle(id/nom, capacite) */
+salle(a1).
+salle(d117).
+salle(c002).
+salle(d012).
+salle(d004).
+salle(a2).
+salle(b001).
+
+% Taille des groupes (arbitraire) et des salles 
 taille(id4, 25).
 taille(silr1, 25).
 taille(silr2, 25).
 taille(info4, 75).
+taille(a1, 350).
+taille(d117, 24).
+taille(c002, 13).
+taille(d012, 24).
+taille(d004, 65).
+taille(a2, 160).
+taille(b001, 15).
 
 % Type de cours (ou Usages) 
 typeCours(ds).
@@ -40,16 +57,6 @@ typeCours(tp).
 typeCours(reunion).
 typeCours(cm).
 typeCours(projet).
-
-% Salles 
-/* "Prototype" : Salle(id/nom, capacite) */
-salle(a1, 350).
-salle(d117, 24).
-salle(c002, 13).
-salle(d012, 24).
-salle(d004, 65).
-salle(a2, 160).
-salle(b001, 15).
 
 % Matieres 
 /* "Prototype" : Matiere(id) */
