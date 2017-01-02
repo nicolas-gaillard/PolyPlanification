@@ -6,7 +6,7 @@
 % Jeu de données :
 % ----------------
 
-/* Enseignants */
+% Enseignants 
 enseignant(graschia).
 enseignant(hlecapitaine).
 enseignant(mgelgon).
@@ -20,21 +20,19 @@ enseignant(fbigeard).
 enseignant(pkuntz).
 enseignant(pdasilva).
 
-/* Groupe d'eleves */
+% Groupe d'eleves 
 groupeEleve(id4).
 groupeEleve(silr1).
 groupeEleve(silr2).
 groupeEleve(info4).
 
-/* Taille des groupes (arbitraire) */
-
+% Taille des groupes (arbitraire)
 taille(id4, 25).
 taille(silr1, 25).
 taille(silr2, 25).
 taille(info4, 75).
 
-
-/* Type de cours (ou Usages) */
+% Type de cours (ou Usages) 
 typeCours(ds).
 typeCours(mp).
 typeCours(dsmachine).
@@ -43,7 +41,7 @@ typeCours(reunion).
 typeCours(cm).
 typeCours(projet).
 
-/* Salle */
+% Salles 
 /* "Prototype" : Salle(id/nom, capacite) */
 salle(a1, 350).
 salle(d117, 24).
@@ -53,7 +51,7 @@ salle(d004, 65).
 salle(a2, 160).
 salle(b001, 15).
 
-/* Matieres */
+% Matieres 
 /* "Prototype" : Matiere(id) */
 matiere(traitementimg).
 matiere(projetia).
@@ -65,11 +63,8 @@ matiere(gestionconnaissances).
 matiere(optimetaheuristiques).
 matiere(analysedonnees).
 
-/* Liste de tous les créneaux possibles */
-/* [c1, c2, c3, c4, c5, c6] */
-
 /* Modélisation de la semaine 1 de cours des INFO4 */
-/* Seance(id). */
+% Seance(id)
 seance(s1).
 seance(s2).
 seance(s3).
@@ -99,8 +94,7 @@ seance(s26).
 seance(s27).
 seance(s28).
 
-% liste des créneaux 
-
+% Liste des créneaux 
 creneau(c1).
 creneau(c2).
 creneau(c3).
@@ -132,7 +126,6 @@ creneau(c28).
 creneau(c29).
 creneau(c30).
 
-
 % -------------
 % Association :
 % -------------
@@ -158,7 +151,7 @@ usageSalle(b001, tp).
 usageSalle(b001, dsmachine).
 usageSalle(b001, mp).
 
-% Enseignant - Matière 
+% Enseignant - Matière :
 enseigne(mgelgon, traitementimg).
 enseigne(jpguedon, traitementimg).
 enseigne(hlecapitaine, projetia).
@@ -170,7 +163,7 @@ enseigne(cgoncalves, comptabilite).
 enseigne(fbigeard, gestionconnaissances).
 enseigne(pkuntz, optimetaheuristiques).
 
-% Matière - groupe d'élèves
+% Matière - Groupe d'élèves :
 etudie(silr1, traitementimg).
 etudie(silr2, traitementimg).
 etudie(silr1, projetia).
@@ -190,7 +183,7 @@ etudie(silr2, optimetaheuristiques).
 etudie(id4, optimetaheuristiques).
 etudie(info4, optimetaheuristiques).
 
-% Seance (id) - type de cours 
+% Seance (id) - Type de cours :
 typeSeance(s1, ds).
 typeSeance(s2, tp).
 typeSeance(s3, tp).
@@ -220,10 +213,11 @@ typeSeance(s26, tp).
 typeSeance(s27, tp).
 typeSeance(s28, tp).
 
-/* Relation sur l'ordonnancement des scéances d'une même matière suivant
+/* 
+ Relation sur l'ordonnancement des scéances d'une même matière suivant
  un temps d'assimilation (par défaut le nb de scéances min étant de 6 et le
- max de 24) */
-
+ max de 24) :
+*/
 suitSeance(s3,s2,0,18).
 suitSeance(s5,s4,0,18).
 suitSeance(s7,s6,0,18).
@@ -240,7 +234,7 @@ suitSeance(s25,s24,0,24).
 suitSeance(s27,s26,0,24).
 suitSeance(s28,s15,6,24).
 
-% Seance (id) - groupe d'élèves 
+% Seance (id) - Groupe d'élèves :
 assiste(silr1,s1).
 assiste(silr2,s1).
 assiste(id4,s2).
@@ -279,7 +273,7 @@ assiste(id4,s26).
 assiste(id4,s27).
 assiste(silr2,s28).
 
-% Seance (id) - enseignants
+% Seance (id) - Enseignants :
 anime(s1,jpguedon).
 anime(s1,mgelgon).
 anime(s2,hlecapitaine).
@@ -314,7 +308,7 @@ anime(s27,hlecapitaine).
 anime(s28,rlehn).
 anime(s28,fleman).
 
-% Seance - matière 
+% Seance - matière :
 estEnseigne(s1, traitementimg).
 estEnseigne(s2, projetia).
 estEnseigne(s3, projetia).
@@ -344,42 +338,6 @@ estEnseigne(s26, projetia).
 estEnseigne(s27, projetia).
 estEnseigne(s28, reseaux3).
 
-% Contrainte de l'ordonnancement des matières 
+% Contrainte de l'ordonnancement des matières :
 precedeMatiere(ia,projetia).
 precedeMatiere(analysedonnees,optimetaheuristiques).
-
-% ####################
-% .: TEST DE REGLES :.
-% ####################
-classroom(X) :- member(X, [a1, d117, c002, d012, d004, a2, b001]).
-
-sont_enseignants([X]) :- enseignant(X).
-sont_enseignants([X|Y]) :- enseignant(X), sont_enseignants(Y).
-
-sont_type_cours([X]) :- typeCours(X).
-sont_type_cours([X|Y]) :- typeCours(X), sont_type_cours(Y).
-
-est_matiere(A) :- matiere(A,_,_).
-est_matiere(A,_,_) :- est_matiere(A).
-est_matiere(A, B, C1) :- est_matiere(A,_,_), sont_enseignants(B), sont_type_cours(C1).
-
-member(X,[X|_]).
-member(X,[_|T]):- member(X,T).
-
-incompatibilite(info4,Y) :-
-	member(Y,[silr1, silr2, id4, info4]).
-
-incompatibilite(silr1,Y) :-
-	member(Y,[info4, silr1]).
-
-incompatibilite(silr2,Y) :-
-	member(Y,[info4, silr2]).
-
-incompatibilite(id4,Y) :-
-	member(Y,[info4, id4]).
-
-disponibiliteProf(X,Y,C1) :- 
-	member(X, Y(_,_,_,_,_,C)).
-
-disponibiliteProf(X) :- 
-	enseignant(X), seance(_,_,_,[X|_],_).
