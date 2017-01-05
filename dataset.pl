@@ -367,7 +367,7 @@ estDans(c7,j2).
 estDans(c8,j2).
 estDans(c9,j2).
 estDans(c10,j2).
-estDans(c11,j2).
+estDans(c11,j2).	
 estDans(c12,j2).
 estDans(c13,j3).
 estDans(c14,j3).
@@ -387,3 +387,26 @@ estDans(c27,j5).
 estDans(c28,j5).
 estDans(c29,j5).
 estDans(c30,j5).
+
+
+
+
+% créer les listes
+
+makeSeances(ListeSeances):- findall(Seance, seance(Seance), ListeSeances).
+% makeCreneaux(ListeCreneaux):- findall(Creneaux, creneau(Creneaux), ListeCreneaux).
+% makeSalle(ListeSalles):- findall(Salle, salle(Salle), ListeSalles).
+
+
+% Algorithme 
+
+planifier([],Solution).
+planifier(ListeSeances,Solution):-
+	member(S, ListeSeances),
+	salle(Room),
+	creneau(C).
+	% Contraintes !
+
+faire_planification(Solution):-
+	makeSeances(ListeSeances),
+	planifier(ListeSeances,Solution).
