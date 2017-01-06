@@ -18,6 +18,24 @@ makeSeances(ListeSeances):- findall(Seance, seance(Seance), ListeSeances).
 % Contraintes :
 % -------------
 
+contrainteCM(S,C) :-
+	\+typeSeance(S,cm); 
+	(	
+		estPlage(C,p2);
+		estPlage(C,p3);
+		estPlage(C,p5)
+	).
+
+contrainteUsage(S,R) :-
+	typeSeance(S,T),
+	usageSalle(R,T).
+
+
+
+
+
+
+
 % ------------------------------
 % Algorithme de plannification :
 % ------------------------------
@@ -32,7 +50,7 @@ planifier(ListeSeances,Solution):-
 
 	% Ajout de la plannification dans le résultat :
 	append([[S, Room, C]], Solution, Result),
-	delete(ListeSeances, S, ListeTronquee)
+	delete(ListeSeances, S, ListeTronquee),
 	planifier(ListeTronquee, Result).
 
 % --------------------------------------------------
