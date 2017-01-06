@@ -142,16 +142,22 @@ plage(5, "15:45", "17:00").
 plage(6, "17:15", "18:30").
 
 % Liste des jours travaillés 
-jours(j1).
-jours(j2).
-jours(j3).
-jours(j4).
-jours(j5).
+jours(j1, "Lundi").
+jours(j2, "Mardi").
+jours(j3, "Mercredi").
+jours(j4, "Jeudi").
+jours(j5, "Vendredi").
 
 % Mois 
-mois(m1).
+mois(m1, "Janvier").
+mois_jour_nf2(m1, [j1, j2, j3, j4, j5]).
+
+mois_jour(M, J) :-
+	mois_jour_nf2(M, Js),
+	member(J, Js).
 
 % Un créneau a une plage, un jour et un mois
+
 
 % -------------
 % Association :

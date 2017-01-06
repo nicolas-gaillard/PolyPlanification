@@ -32,7 +32,7 @@ planifier(ListeSeances,Solution):-
 
 	% Ajout de la plannification dans le résultat :
 	append([[S, Room, C]], Solution, Result),
-	delete(ListeSeances, S, ListeTronquee)
+	delete(ListeSeances, S, ListeTronquee),
 	planifier(ListeTronquee, Result).
 
 % --------------------------------------------------
