@@ -27,11 +27,10 @@ contrainteCM(S,C) :-
 	).
 
 contrainteUsage(S,R) :-
+	\+typeSeance(S,projet);
+	\+typeSeance(S,reunion);
 	typeSeance(S,T),
 	usageSalle(R,T).
-
-
-
 
 
 
@@ -46,11 +45,13 @@ planifier(ListeSeances,Solution):-
 	creneau(C),
 
 	% Contraintes : 
+	contrainteCM(S,C),
+	contrainteUsage(S,Room),
 
 
 	% Ajout de la plannification dans le résultat :
 	append([[S, Room, C]], Solution, Result),
-	delete(ListeSeances, S, ListeTronquee),
+	delete(ListeSeances	, S, ListeTronquee),
 	planifier(ListeTronquee, Result).
 
 % --------------------------------------------------
