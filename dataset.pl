@@ -81,7 +81,7 @@ seance(s6).
 seance(s7).
 seance(s8). % <-- Non respect de la contrainte (CM sur créneau 6)
 seance(s9).
- seance(s10).
+seance(s10).
 seance(s11).
 seance(s12).
 seance(s13).
