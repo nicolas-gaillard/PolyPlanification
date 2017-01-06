@@ -5,9 +5,12 @@
 % Prédicats utiles :
 % ------------------
 
-% Vérification d'un élément dans une liste 
-member(H, [H|T]).
-member(H, [X|T]) :- member(H, T).
+% Somme les effectifs d'une liste de groupe :
+sommeEffectif([], 0).
+sommeEffectif([G|Gs], Somme) :- 
+	sommeEffectif(Gs, Reste),
+	taille(G, TailleGroupe),
+	Somme is TailleGroupe + Reste.
 
 % Création des listes
 makeSeances(ListeSeances):- findall(Seance, seance(Seance), ListeSeances).
@@ -37,12 +40,18 @@ contrainteSalleLibre(C,R,[]).
 contrainteSalleLibre(C,R,Solution) :-
 	\+member([_,R,C],Solution).
 
+
 contrainteEnseignant(S,C,[]).
 contrainteEnseignant(S,C,Solution) :-
 	\+member([Seance,_,C],Solution); % on regarde si on peut unifier une Seance avec la Solution
 	anime(S,Enseignant), % On prend le prof de S
 	\+anime(Seance,Enseignant). % on regarde si c'est le même professeur
 
+contrainteTailleSalle(S, R) :- 
+	taille(R, TailleSalle),
+	findall(Groupe, assiste(S, Groupe), ListeGroupe),
+	sommeEffectif(ListeGroupe, Total), 
+	Total =< TailleSalle.
 
 % ------------------------------
 % Algorithme de plannification :
@@ -57,9 +66,8 @@ planifier(ListeSeances,Solution):-
 	contrainteCM(S,C),
 	contrainteUsage(S,Room),
 	contrainteSalleLibre(C,R,Solution),
-	contrainteEnseignant(S,C,Solution),
-
-
+	contrainteEnseignant(S,C,Solution),	
+	contrainteTailleSalle(S,R),
 
 	% Ajout de la plannification dans le résultat :
 	append([[S, Room, C]], Solution, Result),
