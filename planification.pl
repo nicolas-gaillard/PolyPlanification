@@ -33,6 +33,13 @@ contrainteUsage(S,R) :-
 	usageSalle(R,T).
 
 
+contrainteSalleLibre(C,R,[]).
+contrainteSalleLibre(C,R,Solution) :-
+	\+member([_,R,C],Solution).
+
+
+
+
 % ------------------------------
 % Algorithme de plannification :
 % ------------------------------
@@ -45,6 +52,8 @@ planifier(ListeSeances,Solution):-
 	% Contraintes : 
 	contrainteCM(S,C),
 	contrainteUsage(S,Room),
+	contrainteSalleLibre(C,R,Solution),
+
 
 
 	% Ajout de la plannification dans le résultat :
