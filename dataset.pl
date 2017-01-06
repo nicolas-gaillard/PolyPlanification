@@ -134,12 +134,12 @@ creneau(c29).
 creneau(c30).
 
 % Plages horaire 
-plage(1, "08:00", "09:30"). 
-plage(2, "09:45", "11:00"). 
-plage(3, "11:15", "12:30").
-plage(4, "14:00", "15:30"). 
-plage(5, "15:45", "17:00"). 
-plage(6, "17:15", "18:30").
+plage(p1, "08:00", "09:30"). 
+plage(p2, "09:45", "11:00"). 
+plage(p3, "11:15", "12:30").
+plage(p4, "14:00", "15:30"). 
+plage(p5, "15:45", "17:00"). 
+plage(p6, "17:15", "18:30").
 
 % Liste des jours travaillés 
 jours(j1, "Lundi").
@@ -406,3 +406,36 @@ estDans(c27,j5).
 estDans(c28,j5).
 estDans(c29,j5).
 estDans(c30,j5).
+
+% Créneaux - plages
+
+estPlage(c1,p1).
+estPlage(c2,p2).
+estPlage(c3,p3).
+estPlage(c4,p4).
+estPlage(c5,p5).
+estPlage(c6,p6).
+estPlage(c7,p1).
+estPlage(c8,p2).
+estPlage(c9,p3).
+estPlage(c10,p4).
+estPlage(c11,p5).
+estPlage(c12,p6).
+estPlage(c13,p1).
+estPlage(c14,p2).
+estPlage(c15,p3).
+estPlage(c16,p4).
+estPlage(c17,p5).
+estPlage(c18,p6).
+estPlage(c19,p1).
+estPlage(c20,p2).
+estPlage(c21,p3).
+estPlage(c22,p4).
+estPlage(c23,p5).
+estPlage(c24,p6).
+estPlage(c25,p1).
+estPlage(c26,p2).
+estPlage(c27,p3).
+estPlage(c28,p4).
+estPlage(c29,p5).
+estPlage(c30,p6).
