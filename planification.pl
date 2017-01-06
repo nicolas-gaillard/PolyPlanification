@@ -33,8 +33,6 @@ contrainteUsage(S,R) :-
 	usageSalle(R,T).
 
 
-
-
 % ------------------------------
 % Algorithme de plannification :
 % ------------------------------
