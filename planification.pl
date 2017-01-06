@@ -30,11 +30,11 @@ contrainteUsage(S,R) :-
 	typeSeance(S,T),
 	usageSalle(R,T).
 
-
-
-
-
-
+contrainteTailleSalle(S, R) :- 
+	taille(R, TailleSalle),
+	assiste(S, G),
+	taille(G, TailleGroupe),
+	TailleGroupe =< TailleSalle.
 
 % ------------------------------
 % Algorithme de plannification :
