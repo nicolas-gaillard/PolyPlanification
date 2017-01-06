@@ -133,12 +133,25 @@ creneau(c28).
 creneau(c29).
 creneau(c30).
 
+% Plages horaire 
+plage(1, "08:00", "09:30"). 
+plage(2, "09:45", "11:00"). 
+plage(3, "11:15", "12:30").
+plage(4, "14:00", "15:30"). 
+plage(5, "15:45", "17:00"). 
+plage(6, "17:15", "18:30").
+
 % Liste des jours travaillés 
 jours(j1).
 jours(j2).
 jours(j3).
 jours(j4).
 jours(j5).
+
+% Mois 
+mois(m1).
+
+% Un créneau a une plage, un jour et un mois
 
 % -------------
 % Association :
