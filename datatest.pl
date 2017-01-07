@@ -288,7 +288,7 @@ assiste(Groupe,[T|Q]):-
 % Seance (id) - Enseignant :
 anime(s1,jpguedon).
 anime(s1,mgelgon).
-% anime(s1,hlecapitaine).
+anime(s1,hlecapitaine).
 anime(s2,hlecapitaine).
 anime(s3,hlecapitaine).
 anime(s4,graschia).
@@ -326,6 +326,12 @@ anime(s28,fleman).
 anime([T|Q],Enseignant):-
 	anime(T,Enseignant),
 	anime(Q,Enseignant).
+
+
+animePas([],Enseignant).
+animePas([T|Q],Enseignant) :-
+	\+anime(T,Enseignant),
+	animePas(Q,Enseignant).	
 
 % Seance - Matière :
 estEnseigne(s1, traitementimg).
