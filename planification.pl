@@ -79,12 +79,22 @@ contrainteIncompatibilite(S,C,Solution):-
 
 ecrireSolution([]).
 ecrireSolution(T):-
+
 	seance(T),
-	write("Seance : "T "\n ");
+	write("Seance : "),
+	write(T),
+	write("\n");
 	creneau(T),
-	write("Creneau :" T " \n"),
+	write("Creneau : "),
+	write(T),
+	write("\n");
 	salle(T),
-	write("Salle : " T "\n").
+	write("Salle : "),
+	write(T),
+	write("\n"),
+	write("--------------"),
+	write("\n").
+
 ecrireSolution([T|Q]):-
 	ecrireSolution(T),
 	ecrireSolution(Q).
@@ -92,7 +102,7 @@ ecrireSolution([T|Q]):-
 % ------------------------------
 % Algorithme de plannification :
 % ------------------------------
-planifier([],Solution).
+planifier([],Solution):- ecrireSolution(Solution).
 planifier(ListeSeances,Solution):-
 	member(S, ListeSeances),
 	salle(Room),
