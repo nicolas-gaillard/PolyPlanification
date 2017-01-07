@@ -52,7 +52,7 @@ contrainteEnseignant(S,C,Solution) :-
 
 contrainteTailleSalle(S, R) :- 
 	taille(R, TailleSalle),
-	findall(Groupe, assiste(S, Groupe), ListeGroupe),
+	findall(Groupe, assiste(Groupe, S), ListeGroupe),
 	sommeEffectif(ListeGroupe, Total), 
 	Total =< TailleSalle.
 
@@ -79,7 +79,7 @@ contrainteIncompatibilite(S,C,Solution):-
 	\+groupesIncompatibles(ListeGroupe,ListeGroupe2).
 
 
-%Ecrire Solution
+% Ecrire Solution
 
 ecrireSolution([]).
 ecrireSolution(T):-
