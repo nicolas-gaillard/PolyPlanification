@@ -68,19 +68,31 @@ contrainteTailleSalle(S, R) :-
 		) */
 
 contrainteIncompatibilite(S,C,Solution):-
-	\+member([Sceance,_,C],Solution);
-	findall(Seance,member([Sceance,_,C],Solution),ListeSeances),
+	\+member([Seance,_,C],Solution);
+	findall(Seance,member([Seance,_,C],Solution),ListeSeances),
 	findall(Groupe, assiste(Groupe,S),ListeGroupe),
 	findall(Groupe2, assiste(Groupe2,ListeSeances),ListeGroupe2),
 	\+groupesIncompatibles(ListeGroupe,ListeGroupe2).
 
 
+%Ecrire Solution
 
+ecrireSolution([]).
+ecrireSolution(T):-
+	seance(T),
+	write("Seance : "T "\n ");
+	creneau(T),
+	write("Creneau :" T " \n"),
+	salle(T),
+	write("Salle : " T "\n").
+ecrireSolution([T|Q]):-
+	ecrireSolution(T),
+	ecrireSolution(Q).
 
 % ------------------------------
 % Algorithme de plannification :
 % ------------------------------
-planifier([],Solution) :- write(Solution).
+planifier([],Solution).
 planifier(ListeSeances,Solution):-
 	member(S, ListeSeances),
 	salle(Room),
