@@ -7,6 +7,9 @@
 
 % Somme les effectifs d'une liste de groupe :
 sommeEffectif([], 0).
+sommeEffectif(G, Somme) :- 
+	taille(G, TailleGroupe),
+	Somme is TailleGroupe.
 sommeEffectif([G|Gs], Somme) :- 
 	sommeEffectif(Gs, Reste),
 	taille(G, TailleGroupe),
