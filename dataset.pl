@@ -174,6 +174,18 @@ estIncompatible(id4, id4).
 estIncompatible(silr1, silr1).
 estIncompatible(silr2, silr2).
 
+/*estIncompatible(silr1, silr2).
+estIncompatible(silr1, info).
+
+estIncompatible(silr2, silr1).
+estIncompatible(silr2, info).
+
+estIncompatible(silr1, id4).
+estIncompatible(silr2, id4).
+estIncompatible(id4, silr1).
+estIncompatible(id4, silr2).
+estIncompatible(id4, info).*/
+
 
 groupesIncompatibles(Groupe,[]).
 groupesIncompatibles(Groupe,[T|Q]):-

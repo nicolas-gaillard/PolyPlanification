@@ -72,6 +72,7 @@ contrainteTailleSalle(S, R) :-
 
 contrainteIncompatibilite(S,C,Solution):-
 	\+member([Seance,_,C],Solution);
+	write("OUI LA VOIX"),
 	findall(Seance,member([Seance,_,C],Solution),ListeSeances),
 	findall(Groupe, assiste(Groupe,S),ListeGroupe),
 	findall(Groupe2, assiste(Groupe2,ListeSeances),ListeGroupe2),
@@ -125,10 +126,10 @@ planifier(ListeSeances,Solution):-
 	% Contraintes : 
 	contrainteCM(S,C),
 	contrainteUsage(S,Room),
-	contrainteSalleLibre(C,R,Solution),
+	contrainteSalleLibre(C,Room,Solution),
 	contrainteEnseignant(S,C,Solution),	
 	% contrainteTailleSalle(S,R),
-	contrainteIncompatibilite(S,C,Solution),
+	% contrainteIncompatibilite(S,C,Solution),
 
 	% contrainteExisteDeja(S,Solution),
 
