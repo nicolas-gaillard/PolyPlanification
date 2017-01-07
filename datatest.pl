@@ -285,6 +285,7 @@ assiste(Groupe,[T|Q]):-
 	assiste(Groupe,Q).
 
 
+
 % Seance (id) - Enseignant :
 anime(s1,jpguedon).
 anime(s1,mgelgon).
@@ -326,6 +327,12 @@ anime([X],Enseignant) :- anime(X, Enseignant).
 anime([T|Q],Enseignant):-
 	anime(T,Enseignant),
 	anime(Q,Enseignant).
+anime(S,[X|Y]):-
+	anime(S,X),
+	anime(S,Y).
+anime([X|Y],[V|W]):-
+	anime([X|Y],V),
+	anime([X|Y],W).
 
 
 animePas([],Enseignant).
