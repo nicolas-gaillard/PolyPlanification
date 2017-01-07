@@ -117,6 +117,9 @@ ecrireSolution([T|Q]):-
 	ecrireSolution(T),
 	ecrireSolution(Q).
 
+ecrireSolution2(S):-
+write(S).
+
 % ------------------------------
 % Algorithme de plannification :
 % ------------------------------
@@ -137,6 +140,8 @@ planifier(ListeSeances,Solution):-
 	% contrainteExisteDeja(S,Solution),
 
 	% Ajout de la plannification dans le résultat :
+	/* ecrireSolution2(Solution),
+	write("\n"), */
 	append([[S, Room, C]], Solution, Result),
 	delete(ListeSeances	, S, ListeTronquee),
 	planifier(ListeTronquee, Result).
@@ -147,3 +152,5 @@ faire_planification(Solution):-
 	makeSeances(ListeSeances),
 	planifier(ListeSeances,Solution).
 
+faire_planification():-
+	faire_planification([]).
