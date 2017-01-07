@@ -322,7 +322,7 @@ anime(s28,rlehn).
 anime(s28,fleman).
 
 
-% anime([],Enseignant).
+anime([X],Enseignant) :- anime(X, Enseignant).
 anime([T|Q],Enseignant):-
 	anime(T,Enseignant),
 	anime(Q,Enseignant).
