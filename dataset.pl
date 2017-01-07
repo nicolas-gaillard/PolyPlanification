@@ -169,8 +169,23 @@ mois_jour(M, J) :-
 estIncompatible(info, id4).
 estIncompatible(info, silr1).
 estIncompatible(info, silr2).
+estIncompatible(info, info).
+estIncompatible(id4, id4).
+estIncompatible(silr1, silr1).
+estIncompatible(silr2, silr2).
+
+
+groupesIncompatibles(Groupe,[]).
+groupesIncompatibles(Groupe,[T|Q]):-
+	estIncompatible(Groupe,T),
+	groupesIncompatibles(Groupe,Q).
+groupesIncompatibles([X|Y],Z):-
+	groupesIncompatibles(X,Z),
+	groupesIncompatibles(Y,Z).
+
 
 % Usage des salles :
+
 usageSalle(a1, cm).
 usageSalle(a1, ds).
 usageSalle(d117, cm).
@@ -305,6 +320,12 @@ assiste(silr2,s25).
 assiste(id4,s26).
 assiste(id4,s27).
 assiste(silr2,s28).
+
+assiste(Groupe,[]).
+assiste(Groupe,[T|Q]):-
+	assiste(Groupe,T),
+	assiste(Groupe,Q).
+
 
 % Seance (id) - Enseignant :
 anime(s1,jpguedon).
