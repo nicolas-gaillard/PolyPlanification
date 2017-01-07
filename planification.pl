@@ -53,6 +53,30 @@ contrainteTailleSalle(S, R) :-
 	sommeEffectif(ListeGroupe, Total), 
 	Total =< TailleSalle.
 
+/* contrainteExisteDeja(Solution,SolutionExistantes) :-
+	\+member(Solution,SolutionExistantes). */
+
+/* contrainteIncompatibilite(S,C,Solution):-
+	\+member([Sceance,_,C],Solution);
+	findall(Groupe, assiste(S,Groupe),ListeGroupe),
+	findall(Groupe2, assiste(Sceance,Groupe2),ListeGroupe2),
+	forall(
+		member(Groupebis,ListeGroupe),
+			forall(
+				member(Groupe2bis,ListeGroupe2),
+					\+estIncompatible(Groupebis,Groupe2bis)),
+		) */
+
+contrainteIncompatibilite(S,C,Solution):-
+	\+member([Sceance,_,C],Solution);
+	findall(Seance,member([Sceance,_,C],Solution),ListeSeances),
+	findall(Groupe, assiste(Groupe,S),ListeGroupe),
+	findall(Groupe2, assiste(Groupe2,ListeSeances),ListeGroupe2),
+	\+groupesIncompatibles(ListeGroupe,ListeGroupe2).
+
+
+
+
 % ------------------------------
 % Algorithme de plannification :
 % ------------------------------
@@ -67,7 +91,10 @@ planifier(ListeSeances,Solution):-
 	contrainteUsage(S,Room),
 	contrainteSalleLibre(C,R,Solution),
 	contrainteEnseignant(S,C,Solution),	
-	contrainteTailleSalle(S,R),
+	% contrainteTailleSalle(S,R),
+	contrainteIncompatibilite(S,C,Solution),
+
+	% contrainteExisteDeja(S,Solution),
 
 	% Ajout de la plannification dans le résultat :
 	append([[S, Room, C]], Solution, Result),
