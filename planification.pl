@@ -39,16 +39,18 @@ contrainteUsage(S,R) :-
 	usageSalle(R,T).
 
 
-contrainteSalleLibre(C,R,[]).
+% contrainteSalleLibre(C,R,[]).
 contrainteSalleLibre(C,R,Solution) :-
 	\+member([_,R,C],Solution).
 
 
-contrainteEnseignant(S,C,[]).
+%contrainteEnseignant(S,C,[]).
 contrainteEnseignant(S,C,Solution) :-
-	member([Seance,_,C],Solution), % on regarde si on peut unifier une Seance avec la Solution
+	findall(Seance,member([Seance,_,C],Solution),ListeSeances),
+	%member([Seance,_,C],Solution), % on regarde si on peut unifier une Seance avec la Solution
 	anime(S,Enseignant), % On prend le prof de S
-	\+anime(Seance,Enseignant). % on regarde si c'est le même professeur
+	\+anime(ListeSeances,Enseignant).
+	% \+anime(Seance,Enseignant). % on regarde si c'est le même professeur
 
 % contrainteEnseignant(S,C,[]).
 
