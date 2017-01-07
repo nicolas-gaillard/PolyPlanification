@@ -1,5 +1,5 @@
 % Import du fichier dataset.pl
-:- [dataset].
+:- [datatest].
 
 % ------------------
 % Prédicats utiles :
@@ -46,9 +46,12 @@ contrainteSalleLibre(C,R,Solution) :-
 
 contrainteEnseignant(S,C,[]).
 contrainteEnseignant(S,C,Solution) :-
-	\+member([Seance,_,C],Solution); % on regarde si on peut unifier une Seance avec la Solution
+	member([Seance,_,C],Solution), % on regarde si on peut unifier une Seance avec la Solution
 	anime(S,Enseignant), % On prend le prof de S
 	\+anime(Seance,Enseignant). % on regarde si c'est le même professeur
+
+% contrainteEnseignant(S,C,[]).
+
 
 contrainteTailleSalle(S, R) :- 
 	taille(R, TailleSalle),
@@ -124,11 +127,11 @@ planifier(ListeSeances,Solution):-
 	creneau(C),
 
 	% Contraintes : 
-	contrainteCM(S,C),
-	contrainteUsage(S,Room),
-	contrainteSalleLibre(C,Room,Solution),
+	%contrainteCM(S,C),
+	%contrainteUsage(S,Room),
+	%contrainteSalleLibre(C,Room,Solution),
 	contrainteEnseignant(S,C,Solution),	
-	% contrainteTailleSalle(S,R),
+	%contrainteTailleSalle(S,R),
 	% contrainteIncompatibilite(S,C,Solution),
 
 	% contrainteExisteDeja(S,Solution),
