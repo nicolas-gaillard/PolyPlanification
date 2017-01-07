@@ -83,6 +83,18 @@ ecrireSolution(T):-
 	seance(T),
 	write("Seance : "),
 	write(T),
+	write("\n"),
+	typeSeance(T,X),
+	write("Type de la séance : "),
+	write(X),
+	write("\n"),
+	findall(Groupe,assiste(Groupe,T),ListeGroupe),
+	write("Groupes : "),
+	write(ListeGroupe),
+	write("\n"),
+	findall(Enseignant,anime(T,Enseignant),ListeEnseignants),
+	write("Enseignants : "),
+	write(ListeEnseignants),
 	write("\n");
 	creneau(T),
 	write("Creneau : "),
@@ -94,7 +106,6 @@ ecrireSolution(T):-
 	write("\n"),
 	write("--------------"),
 	write("\n").
-
 ecrireSolution([T|Q]):-
 	ecrireSolution(T),
 	ecrireSolution(Q).
