@@ -322,17 +322,33 @@ anime(s27,hlecapitaine).
 anime(s28,rlehn).
 anime(s28,fleman).
 
+% anime([X],[Y]):- anime(X,Y).
+% anime([X|Y],[Z]):- anime([X|Y],Z).
+% anime([X],Enseignant) :- anime(X, Enseignant).
 
-anime([X],Enseignant) :- anime(X, Enseignant).
+/*anime([X],[Y]):-
+	anime(X,Y).*/
+	
+
 anime([T|Q],Enseignant):-
 	anime(T,Enseignant),
 	anime(Q,Enseignant).
-anime(S,[X|Y]):-
+
+/*anime(S,[X|Y]):-
 	anime(S,X),
-	anime(S,Y).
-anime([X|Y],[V|W]):-
+	anime(S,Y).*/
+
+anime(X,[V|W]):- %fonction findall merde là dessus et déclenche un out of stack
+
+	anime(X,V),
+	anime(X,W).
+
+
+/*anime([X|Y],[V|W]):-
 	anime([X|Y],V),
-	anime([X|Y],W).
+	anime([X|Y],W).*/
+
+
 
 
 animePas([],Enseignant).

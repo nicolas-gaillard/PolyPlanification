@@ -49,7 +49,7 @@ contrainteEnseignant(S,C,Solution) :-
 	findall(Seance,member([Seance,_,C],Solution),ListeSeances),
 	%member([Seance,_,C],Solution), % on regarde si on peut unifier une Seance avec la Solution
 	findall(Enseignant,anime(S,Enseignant),ListeEnseignants),
-	anime(S,ListeEnseignants), % On prend le prof de S
+	% anime(S,ListeEnseignants), % On prend le prof de S
 	\+anime(ListeSeances,ListeEnseignants).
 	%animePas(ListeSeances,Enseignant).
 	% \+anime(Seance,Enseignant). % on regarde si c'est le même professeur
