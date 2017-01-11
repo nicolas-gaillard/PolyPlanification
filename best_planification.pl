@@ -27,6 +27,10 @@ intersection([_|Ps1], Ps2) :-
 better_intersection(List1, List2) :-
     (member(Element, List1), member(Element, List2)).
 
+% Renvoie True s'il trouve deux éléments incompatibles
+test_incompatibilite(List1, List2) :-
+	(member(Element, List1), member(Element, List2), estIncompatible(Element1,Element2)).
+
 % -------------
 % Contraintes :
 % -------------
@@ -72,14 +76,14 @@ contrainteGroupe(S1,R1,C1, [S2,R2,C2]) :-
 contrainteGroupe(S1,R1,C, [S2,R2,C]) :-
 	findall(G1, assiste(G1, S1), Gs1),
 	findall(G2, assiste(G2, S2), Gs2),
-	\+better_intersection(Gs1, Gs2).
+	\+test_incompatibilite(Gs1, Gs2).
 
 % ------------------------------
 % Vérification des contraintes :
 % ------------------------------
 verificationE(Seance,Salle,Creneau,Event) :-
-	contrainteEnseignant(Seance,Salle,Creneau,Event).
-	%contrainteGroupe(Seance,Salle,Creneau,Event).
+	%contrainteEnseignant(Seance,Salle,Creneau,Event),
+	contrainteGroupe(Seance,Salle,Creneau,Event).
 
 verificationEs(Seance,Salle,Creneau,[]).
 verificationEs(Seance,Salle,Creneau, [Event|Es]) :-
