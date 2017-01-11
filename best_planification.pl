@@ -69,7 +69,7 @@ contrainteEnseignant(S1,R1,C, [S2,R2,C]) :-
 % Contrainte : groupe(s) incompatible(s) 
 contrainteGroupe(S1,R1,C1, [S2,R2,C2]) :-
 	C1 \= C2.
-contrainteGroupe(S1,R1,C1, [S2,R2,C2]) :-
+contrainteGroupe(S1,R1,C, [S2,R2,C]) :-
 	findall(G1, assiste(G1, S1), Gs1),
 	findall(G2, assiste(G2, S2), Gs2),
 	\+better_intersection(Gs1, Gs2).
@@ -78,11 +78,11 @@ contrainteGroupe(S1,R1,C1, [S2,R2,C2]) :-
 % Vérification des contraintes :
 % ------------------------------
 verificationE(Seance,Salle,Creneau,Event) :-
-	contrainteEnseignant(Seance,Salle,Creneau,Event),
+	contrainteEnseignant(Seance,Salle,Creneau,Event).
 	%contrainteGroupe(Seance,Salle,Creneau,Event).
 
-verificationEs(_,_,_,[]).
-verificationEs(Seance, Salle,Creneau, [Event|Es]) :-
+verificationEs(Seance,Salle,Creneau,[]).
+verificationEs(Seance,Salle,Creneau, [Event|Es]) :-
 	verificationE(Seance,Salle,Creneau, Event),
 	verificationEs(Seance,Salle,Creneau ,Es).
 

@@ -75,9 +75,9 @@ matiere(analysedonnees).
 seance(s1).
 seance(s2).
 
-
 % Liste des créneaux 
 creneau(c1).
+creneau(c2).
 
 % Plages horaire 
 plage(p1, "08:00", "09:30"). 
@@ -328,20 +328,22 @@ anime(s28,fleman).
 /*anime([X],[Y]):-
 	anime(X,Y).*/
 	
-
+/*
 anime([T|Q],Enseignant):-
 	anime(T,Enseignant),
 	anime(Q,Enseignant).
+*/
 
 /*anime(S,[X|Y]):-
 	anime(S,X),
 	anime(S,Y).*/
 
+/*
 anime(X,[V|W]):- %fonction findall merde là dessus et déclenche un out of stack
 
 	anime(X,V),
 	anime(X,W).
-
+*/
 
 /*anime([X|Y],[V|W]):-
 	anime([X|Y],V),
