@@ -47,6 +47,9 @@ contrainteUsage(S,R) :-
 	typeSeance(S,T),
 	usageSalle(R,T).
 
+contrainteSalleLibre(C,R,Solution) :-
+	\+member([_,R,C],Solution).
+
 % Contrainte : la taille de la salle est suffisante 
 contrainteTailleSalle(S, R) :- 
 	taille(R, TailleSalle),
@@ -55,17 +58,17 @@ contrainteTailleSalle(S, R) :-
 	Total =< TailleSalle.
 
 % Contrainte : enseignant(s) libre(s) 
-contrainteEnseignant(S1,C1,R1, [S2,C2,R2]) :-
+contrainteEnseignant(S1,R1,C1, [S2,R2,C2]) :-
 	C1 \= C2.
-contrainteEnseignant([S1,C1,R1], [S2,C2,R2]) :-
+contrainteEnseignant([S1,R1,C1], [S2,R2,C2]) :-
 	findall(P1, anime(S1,P1), Ps1),
 	findall(P2, anime(S2,P2), Ps2),
 	\+better_intersection(Ps1, Ps2).
 
 % Contrainte : groupe(s) incompatible(s) 
-contrainteGroupe(S1,C1,R1, [S2,C2,R2]) :-
+contrainteGroupe(S1,R1,C1, [S2,R2,C2]) :-
 	C1 \= C2.
-contrainteGroupe(S1,C1,R1, [S2,C2,R2]) :-
+contrainteGroupe(S1,R1,C1, [S2,R2,C2]) :-
 	findall(G1, assiste(G1, S1), Gs1),
 	findall(G2, assiste(G2, S2), Gs2),
 	\+better_intersection(Gs1, Gs2).
@@ -73,14 +76,14 @@ contrainteGroupe(S1,C1,R1, [S2,C2,R2]) :-
 % ------------------------------
 % Vérification des contraintes :
 % ------------------------------
-verificationE(S,C,R,Event) :-
-	contrainteEnseignant(S,C,R,Event),
-	contrainteGroupe(S,C,R,Event).
+verificationE(S,R,C,Event) :-
+	contrainteEnseignant(S,R,C,Event),
+	contrainteGroupe(S,R,C,Event).
 
-verificationEs(S,C,R,[]).
-verificationEs(S,C,R, [Event|Es]) :-
-	verificationE(S,C,R, Event),
-	verificationEs(S,C,R,Es).
+verificationEs(S,R,C,[]).
+verificationEs(S,R,C, [Event|Es]) :-
+	verificationE(S,R,C, Event),
+	verificationEs(S,R,C,Es).
 
 % -----------------------
 % Ecrire de la solution :
@@ -137,7 +140,7 @@ planifier(ListeSeances,Solution):-
 	contrainteSalleLibre(C,R,Solution),
 	contrainteTailleSalle(S,R),
 	% Celles qui ont besoin de parcourir la solution :
-	verificationEs(S,C,R,Solution),
+	verificationEs(S,R,C,Solution),
 
 	% Ajout de la plannification dans le résultat :
 	append([[S, Room, C]], Solution, Result),
