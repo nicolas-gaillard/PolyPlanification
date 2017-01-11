@@ -24,6 +24,9 @@ intersection([P|_], Ps2) :-
 intersection([_|Ps1], Ps2) :-
 	intersection(Ps1, Ps2).
 
+better_intersection(List1, List2) :-
+    (member(Element, List1), member(Element, List2)).
+
 % -------------
 % Contraintes :
 % -------------
@@ -53,7 +56,7 @@ contrainteEnseignant(S1,C1,R1, [S2,C2,R2]) :-
 contrainteEnseignant([S1,C1,R1], [S2,C2,R2]) :-
 	findall(P1, anime(S1,P1), Ps1),
 	findall(P2, anime(S2,P2), Ps2),
-	\+intersection(Ps1, Ps2).
+	\+better_intersection(Ps1, Ps2).
 
 % Contrainte : groupe(s) incompatible(s) 
 contrainteGroupe(S1,C1,R1, [S2,C2,R2]) :-
@@ -61,7 +64,7 @@ contrainteGroupe(S1,C1,R1, [S2,C2,R2]) :-
 contrainteGroupe(S1,C1,R1, [S2,C2,R2]) :-
 	findall(G1, assiste(G1, S1), Gs1),
 	findall(G2, assiste(G2, S2), Gs2),
-	\+intersection(Gs1, Gs2).
+	\+better_intersection(Gs1, Gs2).
 
 % ------------------------------
 % Vérification des contraintes :
