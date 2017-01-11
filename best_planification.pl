@@ -47,8 +47,9 @@ contrainteUsage(S,R) :-
 	typeSeance(S,T),
 	usageSalle(R,T).
 
-contrainteSalleLibre(C,R,Solution) :-
-	\+member([_,R,C],Solution).
+contrainteSalleLibre(_, _, []).
+contrainteSalleLibre(Creneau,Salle,Solution) :-
+	\+member([_,Salle,Creneau],Solution).
 
 % Contrainte : la taille de la salle est suffisante 
 contrainteTailleSalle(S, R) :- 
@@ -60,7 +61,7 @@ contrainteTailleSalle(S, R) :-
 % Contrainte : enseignant(s) libre(s) 
 contrainteEnseignant(S1,R1,C1, [S2,R2,C2]) :-
 	C1 \= C2.
-contrainteEnseignant([S1,R1,C1], [S2,R2,C2]) :-
+contrainteEnseignant(S1,R1,C, [S2,R2,C]) :-
 	findall(P1, anime(S1,P1), Ps1),
 	findall(P2, anime(S2,P2), Ps2),
 	\+better_intersection(Ps1, Ps2).
@@ -76,14 +77,14 @@ contrainteGroupe(S1,R1,C1, [S2,R2,C2]) :-
 % ------------------------------
 % Vérification des contraintes :
 % ------------------------------
-verificationE(S,R,C,Event) :-
-	contrainteEnseignant(S,R,C,Event),
-	contrainteGroupe(S,R,C,Event).
+verificationE(Seance,Salle,Creneau,Event) :-
+	contrainteEnseignant(Seance,Salle,Creneau,Event),
+	%contrainteGroupe(Seance,Salle,Creneau,Event).
 
-verificationEs(S,R,C,[]).
-verificationEs(S,R,C, [Event|Es]) :-
-	verificationE(S,R,C, Event),
-	verificationEs(S,R,C,Es).
+verificationEs(_,_,_,[]).
+verificationEs(Seance, Salle,Creneau, [Event|Es]) :-
+	verificationE(Seance,Salle,Creneau, Event),
+	verificationEs(Seance,Salle,Creneau ,Es).
 
 % -----------------------
 % Ecrire de la solution :
@@ -134,12 +135,13 @@ planifier(ListeSeances,Solution):-
 
 	% Vérification des contraintes :
 	% Celles qui n'ont pas besoin de parcourir la solution :
-	contrainteCM(Seance,Creneau),
-	contrainteUsage(Seance,Salle),
-	contrainteSalleLibre(Creneau,Salle,Solution),
+	%contrainteCM(Seance,Creneau),
+	%contrainteUsage(Seance,Salle),
+	%contrainteSalleLibre(Creneau,Salle,Solution),
 	%contrainteTailleSalle(S,R),
+	
 	% Celles qui ont besoin de parcourir la solution :
-	%verificationEs(S,R,C,Solution),
+	verificationEs(Seance,Salle,Creneau,Solution),
 
 	% Ajout de la plannification dans le résultat :
 	append([[Seance, Salle, Creneau]], Solution, Result),
