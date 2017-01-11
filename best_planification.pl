@@ -1,48 +1,74 @@
 % Import du fichier dataset.pl
 :- [datatest].
 
+% ------------------
+% Prédicats utiles :
+% ------------------
 % Création des listes
 makeSeances(ListeSeances):- findall(Seance, seance(Seance), ListeSeances).
+
+% Somme les effectifs d'une liste de groupe :
+sommeEffectif([], 0).
+sommeEffectif(G, Somme) :- 
+	taille(G, TailleGroupe),
+	Somme is TailleGroupe.
+sommeEffectif([G|Gs], Somme) :- 
+	sommeEffectif(Gs, Reste),
+	taille(G, TailleGroupe),
+	Somme is TailleGroupe + Reste.
+
+% Vérifie que les membres d'une liste ne soient pas en conflit avec une autre :
+intersection([], _).
+intersection([P|_], Ps2) :-
+	member(P, Ps2).
+intersection([_|Ps1], Ps2) :-
+	intersection(Ps1, Ps2).
 
 % -------------
 % Contraintes :
 % -------------
 
 contrainteCM(S,C) :-
-	\+typeSeance(S,cm); 
-	(	
+	\+typeSeance(S,cm).
+
+contrainteCM(S,C) :-
 		estPlage(C,p2);
 		estPlage(C,p3);
-		estPlage(C,p5)
-	).
+		estPlage(C,p5).
 
 contrainteUsage(S,R) :-
-	\+typeSeance(S,projet);
-	\+typeSeance(S,reunion);
+	typeSeance(S,projet).
+contrainteUsage(S,R) :-
+	typeSeance(S,reunion).
+contrainteUsage(S,R) :-
 	typeSeance(S,T),
 	usageSalle(R,T).
 
 contrainteSalleLibre(C,R,Solution) :-
 	\+member([_,R,C],Solution).
 
-% Contrainte : enseignant(s) libre(s) :
-intersectionProf([P|_], Ps2) :-
-	member(P, Ps2).
-intersectionProf([_|Ps1], Ps2) :-
-	intersectionProf(Ps1, Ps2).
-
+% Contrainte : enseignant(s) libre(s) 
 contrainteEnseignant(S1,C1,R1, [S2,C2,R2]) :-
 	C1 \= C2.
 contrainteEnseignant([S1,C1,R1], [S2,C2,R2]) :-
 	findall(P1, anime(S1,P1), Ps1),
 	findall(P2, anime(S2,P2), Ps2),
-	\+intersectionProf(Ps1, Ps2).
+	\+intersection(Ps1, Ps2).
+
+% Contrainte : groupe(s) incompatible(s) 
+contrainteGroupe(S1,C1,R1, [S2,C2,R2]) :-
+	C1 \= C2.
+contrainteGroupe(S1,C1,R1, [S2,C2,R2]) :-
+	findall(G1, assiste(G1, S1), Gs1),
+	findall(G2, assiste(G2, S2), Gs2),
+	\+intersection(Gs1, Gs2).
 
 % ------------------------------
 % Vérification des contraintes :
 % ------------------------------
 verificationE(S,C,R,Event) :-
-	contrainteEnseignant(S,C,R,Event).
+	contrainteEnseignant(S,C,R,Event),
+	contrainteGroupe(S,C,R,Event).
 
 verificationEs(S,C,R,[]).
 verificationEs(S,C,R, [Event|Es]) :-
@@ -90,7 +116,7 @@ write(S).
 % ------------------------------
 % Algorithme de plannification :
 % ------------------------------
-planifier([],Solution):- ecrireSolution(Solution).
+planifier([],Solution):- write(Solution).
 planifier(ListeSeances,Solution):-
 	member(S, ListeSeances),
 	salle(Room),

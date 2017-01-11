@@ -285,7 +285,6 @@ assiste(Groupe,[T|Q]):-
 	assiste(Groupe,Q).
 
 
-
 % Seance (id) - Enseignant :
 anime(s1,jpguedon).
 anime(s1,mgelgon).
@@ -347,9 +346,6 @@ anime(X,[V|W]):- %fonction findall merde là dessus et déclenche un out of stac
 /*anime([X|Y],[V|W]):-
 	anime([X|Y],V),
 	anime([X|Y],W).*/
-
-
-
 
 animePas([],Enseignant).
 animePas([T|Q],Enseignant) :-
