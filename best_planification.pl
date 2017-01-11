@@ -94,30 +94,27 @@ verificationEs(Seance,Salle,Creneau, [Event|Es]) :-
 % Ecrire de la solution :
 % -----------------------
 ecrireSolution([]).
-ecrireSolution(T):-
-	seance(T),
+ecrireSolution([Seance, Salle, Creneau]):-
 	write("Seance : "),
-	write(T),
+	write(Seance),
 	write("\n"),
-	typeSeance(T,X),
+	typeSeance(Seance,X),
 	write("Type de la séance : "),
 	write(X),
 	write("\n"),
-	findall(Groupe,assiste(Groupe,T),ListeGroupe),
+	findall(Groupe,assiste(Groupe,Seance),ListeGroupe),
 	write("Groupes : "),
 	write(ListeGroupe),
 	write("\n"),
-	findall(Enseignant,anime(T,Enseignant),ListeEnseignants),
+	findall(Enseignant,anime(Seance,Enseignant),ListeEnseignants),
 	write("Enseignants : "),
 	write(ListeEnseignants),
-	write("\n");
-	creneau(T),
+	write("\n"),
 	write("Creneau : "),
-	write(T),
-	write("\n");
-	salle(T),
+	write(Creneau),
+	write("\n"),
 	write("Salle : "),
-	write(T),
+	write(Salle),
 	write("\n"),
 	write("--------------"),
 	write("\n").
