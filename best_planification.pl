@@ -128,23 +128,22 @@ write(S).
 % ------------------------------
 planifier([],Solution):- write(Solution).
 planifier(ListeSeances,Solution):-
-	member(S, ListeSeances),
-	salle(Room),
-	creneau(C),
-
+	member(Seance, ListeSeances),
+	salle(Salle),
+	creneau(Creneau),
 
 	% Vérification des contraintes :
 	% Celles qui n'ont pas besoin de parcourir la solution :
-	contrainteCM(S,C),
-	contrainteUsage(S,R),
-	contrainteSalleLibre(C,R,Solution),
-	contrainteTailleSalle(S,R),
+	contrainteCM(Seance,Creneau),
+	contrainteUsage(Seance,Salle),
+	contrainteSalleLibre(Creneau,Salle,Solution),
+	%contrainteTailleSalle(S,R),
 	% Celles qui ont besoin de parcourir la solution :
-	verificationEs(S,R,C,Solution),
+	%verificationEs(S,R,C,Solution),
 
 	% Ajout de la plannification dans le résultat :
-	append([[S, Room, C]], Solution, Result),
-	delete(ListeSeances	, S, ListeTronquee),
+	append([[Seance, Salle, Creneau]], Solution, Result),
+	delete(ListeSeances	, Seance, ListeTronquee),
 	planifier(ListeTronquee, Result).
 
 % --------------------------------------------------
