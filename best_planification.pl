@@ -29,7 +29,7 @@ better_intersection(List1, List2) :-
 
 % Renvoie True s'il trouve deux éléments incompatibles
 test_incompatibilite(List1, List2) :-
-	(member(Element, List1), member(Element, List2), estIncompatible(Element1,Element2)).
+	(member(Element1, List1), member(Element2, List2), incompatibiliteSymetrique(Element1,Element2)).
 
 % -------------
 % Contraintes :
@@ -131,7 +131,7 @@ write(S).
 % ------------------------------
 % Algorithme de plannification :
 % ------------------------------
-planifier([],Solution):- write(Solution).
+planifier([],Solution):- ecrireSolution(Solution).
 planifier(ListeSeances,Solution):-
 	member(Seance, ListeSeances),
 	salle(Salle),

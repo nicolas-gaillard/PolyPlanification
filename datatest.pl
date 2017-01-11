@@ -77,7 +77,7 @@ seance(s2).
 
 % Liste des créneaux 
 creneau(c1).
-creneau(c2).
+% creneau(c2).
 
 % Plages horaire 
 plage(p1, "08:00", "09:30"). 
@@ -119,21 +119,10 @@ estIncompatible(info, info).
 estIncompatible(id4, id4).
 estIncompatible(silr1, silr1).
 estIncompatible(silr2, silr2).
-estIncompatible(silr1, id4).
-/*
-estIncompatible(silr1, silr2).
-estIncompatible(silr1, info).
 
-estIncompatible(silr2, silr1).
-estIncompatible(silr2, info).
-
-estIncompatible(silr1, id4).
-estIncompatible(silr2, id4).
-estIncompatible(id4, silr1).
-estIncompatible(id4, silr2).
-estIncompatible(id4, info).
-*/
-
+incompatibiliteSymetrique(X,Y):- % évite la boucle infinie 
+	estIncompatible(X,Y);
+	estIncompatible(Y,X).
 
 % Usage des salles :
 
