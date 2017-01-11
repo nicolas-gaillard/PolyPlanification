@@ -30,15 +30,15 @@ better_intersection(List1, List2) :-
 % -------------
 % Contraintes :
 % -------------
-
+% Contrainte : pas de CM sur certains créneaux
 contrainteCM(S,C) :-
 	\+typeSeance(S,cm).
-
 contrainteCM(S,C) :-
 		estPlage(C,p2);
 		estPlage(C,p3);
 		estPlage(C,p5).
 
+% Contrainte : la salle est adapté au cours 
 contrainteUsage(S,R) :-
 	typeSeance(S,projet).
 contrainteUsage(S,R) :-
@@ -47,8 +47,12 @@ contrainteUsage(S,R) :-
 	typeSeance(S,T),
 	usageSalle(R,T).
 
-contrainteSalleLibre(C,R,Solution) :-
-	\+member([_,R,C],Solution).
+% Contrainte : la taille de la salle est suffisante 
+contrainteTailleSalle(S, R) :- 
+	taille(R, TailleSalle),
+	findall(Groupe, assiste(Groupe, S), ListeGroupe),
+	sommeEffectif(ListeGroupe, Total), 
+	Total =< TailleSalle.
 
 % Contrainte : enseignant(s) libre(s) 
 contrainteEnseignant(S1,C1,R1, [S2,C2,R2]) :-
@@ -127,9 +131,12 @@ planifier(ListeSeances,Solution):-
 
 
 	% Vérification des contraintes :
+	% Celles qui n'ont pas besoin de parcourir la solution :
 	contrainteCM(S,C),
 	contrainteUsage(S,R),
 	contrainteSalleLibre(C,R,Solution),
+	contrainteTailleSalle(S,R),
+	% Celles qui ont besoin de parcourir la solution :
 	verificationEs(S,C,R,Solution),
 
 	% Ajout de la plannification dans le résultat :
