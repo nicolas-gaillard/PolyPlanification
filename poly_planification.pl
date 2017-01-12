@@ -80,6 +80,7 @@ contrainteGroupe(S1,R1,P,J,M, [S2,R2,P,J,M]) :-
 	findall(G2, assiste(G2, S2), Gs2),
 	\+test_incompatibilite(Gs1, Gs2).
 
+
 % Contrainte de l'ordonnancement des matières :
 differencePlage(P1, J1, M1, P2, J2, M2, Result) :-
 	nbPlages(TotalPlage),
@@ -99,13 +100,35 @@ contrainteOrdonnancement(S1,P1,J1,M1,[S2,_,P2,J2,M2]):-
 	differencePlage(P2, J2, M2, P1, J1, M1, Result),
 	between(X,Y,Result).
 
+% Contrainte du séquencement des matières
+
+contrainteSequencement(S1,P1,J1,M1,[S2,_,P2,J2,M2]):-
+	estEnseigne(S1,X),
+	estEnseigne(S2,Y),
+	\+precedeMatiere(X,Y),
+	\+precedeMatiere(X,Y);
+	estEnseigne(S1,X),
+	estEnseigne(S2,Y),
+	precedeMatiere(X,Y),
+	differencePlage(P1, J1, M1, P2, J2, M2, Result),
+	Result < 0;
+	estEnseigne(S1,X),
+	estEnseigne(S2,Y),
+	precedeMatiere(Y,X),
+	differencePlage(P1, J1, M1, P2, J2, M2, Result),
+	Result > 0.
+
+
+
 % ------------------------------
 % Vérification des contraintes :
 % ------------------------------
 verificationE(Seance,Salle,Plage,Jour,Mois,Event) :-
 	contrainteEnseignant(Seance,Salle,Plage,Jour,Mois,Event),
-	contrainteGroupe(Seance,Salle,Plage,Jour,Mois,Event),
-	contrainteOrdonnancement(Seance,Plage,Jour,Mois,Event).
+	% contrainteGroupe(Seance,Salle,Plage,Jour,Mois,Event),
+	% contrainteOrdonnancement(Seance,Plage,Jour,Mois,Event),
+	contrainteSequencement(Seance,Plage,Jour,Mois,Event).
+	
 
 verificationEs(_,_,_,_,_,[]).
 verificationEs(Seance,Salle,Plage,Jour,Mois, [Event|Es]) :-
@@ -180,10 +203,10 @@ planifier(ListeSeances,Solution):-
 	% ------------------------------
 
 	% Celles qui n'ont pas besoin de parcourir la solution :
-	contrainteCM(Seance,Plage),
-	contrainteUsage(Seance,Salle),
-	contrainteSalleLibre(Plage,Jour,Mois,Salle,Solution),
-	contrainteTailleSalle(Seance,Salle),
+	%contrainteCM(Seance,Plage),
+	%contrainteUsage(Seance,Salle),
+	%contrainteSalleLibre(Plage,Jour,Mois,Salle,Solution),
+	% contrainteTailleSalle(Seance,Salle),
 	
 	% Celles qui ont besoin de parcourir la solution :
 	verificationEs(Seance,Salle,Plage,Jour,Mois,Solution),

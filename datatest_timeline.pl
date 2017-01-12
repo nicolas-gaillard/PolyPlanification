@@ -72,7 +72,7 @@ matiere(analysedonnees).
 
 /* Modélisation de la semaine 1 de cours des INFO4 */
 % Seance(id)
-% seance(s1).
+seance(s1).
 seance(s2).
 seance(s3).
 
@@ -214,7 +214,7 @@ typeSeance(s28, tp).
  un temps d'assimilation (par défaut le nb de scéances min étant de 6 et le
  max de 24) :
 */
-suitSeance(s3,s2,0,18).
+suitSeance(s3,s2,6,18).
 suitSeance(s5,s4,0,18).
 suitSeance(s7,s6,0,18).
 suitSeance(s9,s8,0,18).
@@ -342,5 +342,6 @@ estEnseigne(s27, projetia).
 estEnseigne(s28, reseaux3).
 
 % Contrainte de l'ordonnancement des matières :
+precedeMatiere(projetia,traitementimg).
 precedeMatiere(ia,projetia).
 precedeMatiere(analysedonnees,optimetaheuristiques).
