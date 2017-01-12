@@ -187,9 +187,6 @@ ecrireSolution([T|Q]):-
 	ecrireSolution(T),
 	ecrireSolution(Q).
 
-ecrireSolution2(S):-
-write(S).
-
 % ------------------------------
 % Algorithme de plannification :
 % ------------------------------
