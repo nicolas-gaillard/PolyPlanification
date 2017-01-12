@@ -79,7 +79,7 @@ seance(s2).
 % -------
 
 % Constantes :
-joursParMois(30).
+joursParMois(20).
 nbPlages(6).
 nbMois(12).
 

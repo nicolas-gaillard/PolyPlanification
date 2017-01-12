@@ -50,9 +50,9 @@ contrainteSalleLibre(Plage,Jour,Mois,Salle,Solution) :-
 	\+member([_,Salle,Plage,Jour,Mois],Solution).
 
 % Contrainte : la taille de la salle est suffisante 
-contrainteTailleSalle(S, R) :- 
-	taille(R, TailleSalle),
-	findall(Groupe, assiste(Groupe, S), ListeGroupe),
+contrainteTailleSalle(Seance, Salle) :- 
+	taille(Salle, TailleSalle),
+	findall(Groupe, assiste(Groupe, Seance), ListeGroupe),
 	sommeEffectif(ListeGroupe, Total), 
 	Total =< TailleSalle.
 
@@ -96,7 +96,7 @@ verificationEs(Seance,Salle,Plage,Jour,Mois, [Event|Es]) :-
 % Ecrire de la solution :
 % -----------------------
 ecrireSolution([]).
-ecrireSolution([Seance, Salle, Creneau]):-
+ecrireSolution([Seance, Salle, Plage, Jour, Mois]):-
 	write("Seance : "),
 	write(Seance),
 	write("\n"),
@@ -112,8 +112,17 @@ ecrireSolution([Seance, Salle, Creneau]):-
 	write("Enseignants : "),
 	write(ListeEnseignants),
 	write("\n"),
-	write("Creneau : "),
-	write(Creneau),
+	write("Date : "),
+	write("Jour numéro "),
+	write(Jour),
+	write(" de "),
+	mois(Mois, Nom),
+	write(Nom),
+	write(" sur le créneau "),
+	plage(Plage, T1, T2),
+	write(T1),
+	write(" - "),
+	write(T2),
 	write("\n"),
 	write("Salle : "),
 	write(Salle),
@@ -130,7 +139,7 @@ write(S).
 % ------------------------------
 % Algorithme de plannification :
 % ------------------------------
-planifier([],Solution):- write(Solution).
+planifier([],Solution):- ecrireSolution(Solution).
 planifier(ListeSeances,Solution):-
 	member(Seance, ListeSeances),
 	salle(Salle),
@@ -143,7 +152,7 @@ planifier(ListeSeances,Solution):-
 	%contrainteCM(Seance,Plage),
 	%contrainteUsage(Seance,Salle),
 	%contrainteSalleLibre(Plage,Jour,Mois,Salle,Solution),
-	%contrainteTailleSalle(S,R),
+	contrainteTailleSalle(Seance,Salle),
 	
 	% Celles qui ont besoin de parcourir la solution :
 	verificationEs(Seance,Salle,Plage,Jour,Mois,Solution),
