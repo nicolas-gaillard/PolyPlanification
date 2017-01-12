@@ -25,10 +25,18 @@ better_intersection(List1, List2) :-
 test_incompatibilite(List1, List2) :-
 	(member(Element1, List1), member(Element2, List2), incompatibiliteSymetrique(Element1,Element2)).
 
+% Renvoie la difference de plages entre deux évènements :
+differencePlage(P1, J1, M1, P2, J2, M2, Result) :-
+	nbPlages(TotalPlage),
+	joursParMois(TotalMois),
+	NbPlage1 is P1 + J1*TotalPlage + M1*TotalPlage*TotalMois,
+	NbPlage2 is P2 + J2*TotalPlage + M2*TotalPlage*TotalMois,
+	Result is NbPlage1 - NbPlage2.
+
 % -------------
 % Contraintes :
 % -------------
-% Contrainte : pas de CM sur certains créneaux
+% Pas de CM sur certains créneaux :
 contrainteCM(Seance,Plage) :-
 	\+typeSeance(Seance,cm).
 contrainteCM(Seance,Plage) :-
@@ -36,7 +44,7 @@ contrainteCM(Seance,Plage) :-
 		Plage \= plage(4,_,_);
 		Plage \= plage(6,_,_).
 
-% Contrainte : la salle est adapté au cours 
+% La salle est adapté au cours :
 contrainteUsage(S,R) :-
 	typeSeance(S,projet).
 contrainteUsage(S,R) :-
@@ -45,18 +53,19 @@ contrainteUsage(S,R) :-
 	typeSeance(S,T),
 	usageSalle(R,T).
 
+% La salle doit être libre (aucun cours ne doit être donné dedans en même temps) :
 contrainteSalleLibre(_,_,_,_,[]).
 contrainteSalleLibre(Plage,Jour,Mois,Salle,Solution) :-
 	\+member([_,Salle,Plage,Jour,Mois],Solution).
 
-% Contrainte : la taille de la salle est suffisante 
+% La taille de la salle est suffisante pour accueillir les groupes :
 contrainteTailleSalle(Seance, Salle) :- 
 	taille(Salle, TailleSalle),
 	findall(Groupe, assiste(Groupe, Seance), ListeGroupe),
 	sommeEffectif(ListeGroupe, Total), 
 	Total =< TailleSalle.
 
-% Contrainte : enseignant(s) libre(s) 
+% Le ou les enseignant(s) libre(s) (ils ne donnent pas de cours à cet instant) :
 contrainteEnseignant(S1,R1,P1,J1,M1, [S2,R2,P2,J2,M2]) :-
 	P1\=P2,
 	J1=J2,
@@ -68,7 +77,7 @@ contrainteEnseignant(S1,R1,P,J,M, [S2,R2,P,J,M]) :-
 	findall(P2, anime(S2,P2), Ps2),
 	\+better_intersection(Ps1, Ps2).
 
-% Contrainte : groupe(s) incompatible(s) 
+% Des groupe(s) incompatible(s) ne peuvent avoir cours en même temps :
 contrainteGroupe(S1,R1,P1,J1,M1, [S2,R2,P2,J2,M2]) :-
 	P1\=P2,
 	J1=J2,
@@ -81,15 +90,6 @@ contrainteGroupe(S1,R1,P,J,M, [S2,R2,P,J,M]) :-
 	\+test_incompatibilite(Gs1, Gs2).
 
 
-% Contrainte de l'ordonnancement des matières :
-differencePlage(P1, J1, M1, P2, J2, M2, Result) :-
-	nbPlages(TotalPlage),
-	joursParMois(TotalMois),
-	NbPlage1 is P1 + J1*TotalPlage + M1*TotalPlage*TotalMois,
-	NbPlage2 is P2 + J2*TotalPlage + M2*TotalPlage*TotalMois,
-	Result is NbPlage1 - NbPlage2.
-
- 
 contrainteOrdonnancement(S1,P1,J1,M1,[S2,_,P2,J2,M2]):-
 	\+suitSeance(S1,S2,_,_), % les 2 seances n'ont pas besoin de se suivre 
 	\+suitSeance(S2,S1,_,_);
@@ -136,31 +136,17 @@ verificationEs(Seance,Salle,Plage,Jour,Mois, [Event|Es]) :-
 	verificationEs(Seance,Salle,Plage,Jour,Mois ,Es).
 
 
-% -----------------------
-% Ecrire de la solution :
-% -----------------------
+% -------------------------
+% Ecriture de la solution :
+% -------------------------
 ecrireSolution([]) :- 
 	write("\n"),
 	write("------------------------------------------------------------------ \n"),
 	write("################################################################## \n"),
 	write("------------------------------------------------------------------ \n"),
 	write("\n").
+
 ecrireSolution([Seance, Salle, Plage, Jour, Mois]):-
-	write("Seance : "),
-	write(Seance),
-	write("\n"),
-	typeSeance(Seance,X),
-	write("Type de la séance : "),
-	write(X),
-	write("\n"),
-	findall(Groupe,assiste(Groupe,Seance),ListeGroupe),
-	write("Groupes : "),
-	write(ListeGroupe),
-	write("\n"),
-	findall(Enseignant,anime(Seance,Enseignant),ListeEnseignants),
-	write("Enseignants : "),
-	write(ListeEnseignants),
-	write("\n"),
 	write("Date : "),
 	write("Jour numéro "),
 	write(Jour),
@@ -172,6 +158,25 @@ ecrireSolution([Seance, Salle, Plage, Jour, Mois]):-
 	write(T1),
 	write(" - "),
 	write(T2),
+	write("\n"),
+	write("Seance : "),
+	write(Seance),
+	write("\n"),
+	typeSeance(Seance,X),
+	write("Type de la séance : "),
+	write(X),
+	write("\n"),
+	estEnseigne(Seance, Matiere),
+	write("Matière : "),
+	write(Matiere),
+	write("\n"),
+	findall(Groupe,assiste(Groupe,Seance),ListeGroupe),
+	write("Groupes : "),
+	write(ListeGroupe),
+	write("\n"),
+	findall(Enseignant,anime(Seance,Enseignant),ListeEnseignants),
+	write("Enseignants : "),
+	write(ListeEnseignants),
 	write("\n"),
 	write("Salle : "),
 	write(Salle),
@@ -190,13 +195,12 @@ write(S).
 % ------------------------------
 planifier([],Solution):- ecrireSolution(Solution).
 planifier(ListeSeances,Solution):-
+
 	% Choix non déterministe :
 	% ------------------------
 	member(Seance, ListeSeances),
-	
 	date(Jour, Mois),
 	plage(Plage,_,_),
-
 	salle(Salle),
 	
 	% Vérification des contraintes :
@@ -217,9 +221,13 @@ planifier(ListeSeances,Solution):-
 	delete(ListeSeances	, Seance, ListeTronquee),
 
 	% Appel récursif de la solution :
+	% -------------------------------
 	planifier(ListeTronquee, Result).
 
-% --------------------------------------------------
+% #######################################################
+% #######################################################
+
+% Prédicat qui détermine la planification :
 faire_planification(Solution):-
 	makeSeances(ListeSeances),
 	planifier(ListeSeances,Solution).
