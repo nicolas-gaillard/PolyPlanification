@@ -106,7 +106,7 @@ contrainteSequencement(S1,P1,J1,M1,[S2,_,P2,J2,M2]):-
 	estEnseigne(S1,X),
 	estEnseigne(S2,Y),
 	\+precedeMatiere(X,Y),
-	\+precedeMatiere(X,Y);
+	\+precedeMatiere(Y,X);
 	estEnseigne(S1,X),
 	estEnseigne(S2,Y),
 	precedeMatiere(X,Y),
@@ -126,7 +126,7 @@ contrainteSequencement(S1,P1,J1,M1,[S2,_,P2,J2,M2]):-
 verificationE(Seance,Salle,Plage,Jour,Mois,Event) :-
 	%contrainteEnseignant(Seance,Salle,Plage,Jour,Mois,Event),
 	%contrainteGroupe(Seance,Salle,Plage,Jour,Mois,Event),
-	%contrainteOrdonnancement(Seance,Plage,Jour,Mois,Event),
+	contrainteOrdonnancement(Seance,Plage,Jour,Mois,Event),
 	contrainteSequencement(Seance,Plage,Jour,Mois,Event).
 	
 

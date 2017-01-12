@@ -27,6 +27,7 @@ groupeEleve(silr2).
 groupeEleve(info4).
 
 % Salles 
+/* "Prototype" : Salle(id/nom, capacite) */
 salle(a1).
 salle(d117).
 salle(c002).
@@ -58,6 +59,7 @@ typeCours(cm).
 typeCours(projet).
 
 % Matieres 
+/* "Prototype" : Matiere(id) */
 matiere(traitementimg).
 matiere(projetia).
 matiere(reseaux3).
@@ -131,6 +133,7 @@ incompatibiliteSymetrique(X,Y):- % évite la boucle infinie
 	estIncompatible(Y,X).
 
 % Usage des salles :
+
 usageSalle(a1, cm).
 usageSalle(a1, ds).
 usageSalle(d117, cm).
