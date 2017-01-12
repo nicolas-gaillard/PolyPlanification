@@ -80,6 +80,8 @@ contrainteGroupe(S1,R1,P,J,M, [S2,R2,P,J,M]) :-
 	findall(G2, assiste(G2, S2), Gs2),
 	\+test_incompatibilite(Gs1, Gs2).
 
+% Contrainte de l'ordonnancement des matières :
+
 % ------------------------------
 % Vérification des contraintes :
 % ------------------------------
@@ -95,7 +97,12 @@ verificationEs(Seance,Salle,Plage,Jour,Mois, [Event|Es]) :-
 % -----------------------
 % Ecrire de la solution :
 % -----------------------
-ecrireSolution([]).
+ecrireSolution([]) :- 
+	write("\n"),
+	write("------------------------------------------------------------------ \n"),
+	write("################################################################## \n"),
+	write("------------------------------------------------------------------ \n"),
+	write("\n").
 ecrireSolution([Seance, Salle, Plage, Jour, Mois]):-
 	write("Seance : "),
 	write(Seance),
@@ -141,25 +148,33 @@ write(S).
 % ------------------------------
 planifier([],Solution):- ecrireSolution(Solution).
 planifier(ListeSeances,Solution):-
+	% Choix non déterministe :
+	% ------------------------
 	member(Seance, ListeSeances),
-	salle(Salle),
-
+	
 	date(Jour, Mois),
 	plage(Plage,_,_),
 
+	salle(Salle),
+	
 	% Vérification des contraintes :
+	% ------------------------------
+
 	% Celles qui n'ont pas besoin de parcourir la solution :
-	%contrainteCM(Seance,Plage),
-	%contrainteUsage(Seance,Salle),
-	%contrainteSalleLibre(Plage,Jour,Mois,Salle,Solution),
+	contrainteCM(Seance,Plage),
+	contrainteUsage(Seance,Salle),
+	contrainteSalleLibre(Plage,Jour,Mois,Salle,Solution),
 	contrainteTailleSalle(Seance,Salle),
 	
 	% Celles qui ont besoin de parcourir la solution :
 	verificationEs(Seance,Salle,Plage,Jour,Mois,Solution),
 
 	% Ajout de la plannification dans le résultat :
+	% ---------------------------------------------
 	append([ [Seance, Salle, Plage, Jour, Mois] ], Solution, Result),
 	delete(ListeSeances	, Seance, ListeTronquee),
+
+	% Appel récursif de la solution :
 	planifier(ListeTronquee, Result).
 
 % --------------------------------------------------

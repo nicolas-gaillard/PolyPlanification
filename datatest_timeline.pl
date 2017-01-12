@@ -42,9 +42,9 @@ taille(silr1, 25).
 taille(silr2, 25).
 taille(info4, 75).
 taille(a1, 350).
-taille(d117, 24).
+taille(d117, 30). % Anciennement 24
 taille(c002, 13).
-taille(d012, 24).
+taille(d012, 30). % Anciennement 24
 taille(d004, 65).
 taille(a2, 160).
 taille(b001, 15).
@@ -309,39 +309,6 @@ anime(s26,hlecapitaine).
 anime(s27,hlecapitaine).
 anime(s28,rlehn).
 anime(s28,fleman).
-
-% anime([X],[Y]):- anime(X,Y).
-% anime([X|Y],[Z]):- anime([X|Y],Z).
-% anime([X],Enseignant) :- anime(X, Enseignant).
-
-/*anime([X],[Y]):-
-	anime(X,Y).*/
-	
-/*
-anime([T|Q],Enseignant):-
-	anime(T,Enseignant),
-	anime(Q,Enseignant).
-*/
-
-/*anime(S,[X|Y]):-
-	anime(S,X),
-	anime(S,Y).*/
-
-/*
-anime(X,[V|W]):- %fonction findall merde là dessus et déclenche un out of stack
-
-	anime(X,V),
-	anime(X,W).
-*/
-
-/*anime([X|Y],[V|W]):-
-	anime([X|Y],V),
-	anime([X|Y],W).*/
-
-animePas([],Enseignant).
-animePas([T|Q],Enseignant) :-
-	\+anime(T,Enseignant),
-	animePas(Q,Enseignant).	
 
 % Seance - Matière :
 estEnseigne(s1, traitementimg).
