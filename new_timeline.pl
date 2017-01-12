@@ -35,14 +35,14 @@ date(J,M) :-
 /* Dans l'algo, les choix déterministes se font :
 
 date(Jour,Mois),
-plage(P),
+plage(Plage),
 
 Solution : [ [Seance, Salle, Plage, Jour, Mois] ]
 */
 
-differenceCreneau(P1, J1, M1, P2, J2, M2, Result) :-
-	nbPlage(TotalPlage),
-	nbMois(TotalMois),
+differencePlage(P1, J1, M1, P2, J2, M2, Result) :-
+	nbPlages(TotalPlage),
+	joursParMois(TotalMois),
 	NbPlage1 is P1 + J1*TotalPlage + M1*TotalPlage*TotalMois,
 	NbPlage2 is P2 + J2*TotalPlage + M2*TotalPlage*TotalMois,
 	Result is NbPlage2 - NbPlage1.
