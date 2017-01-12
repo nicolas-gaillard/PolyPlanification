@@ -81,18 +81,37 @@ contrainteGroupe(S1,R1,P,J,M, [S2,R2,P,J,M]) :-
 	\+test_incompatibilite(Gs1, Gs2).
 
 % Contrainte de l'ordonnancement des matières :
+differencePlage(P1, J1, M1, P2, J2, M2, Result) :-
+	nbPlages(TotalPlage),
+	joursParMois(TotalMois),
+	NbPlage1 is P1 + J1*TotalPlage + M1*TotalPlage*TotalMois,
+	NbPlage2 is P2 + J2*TotalPlage + M2*TotalPlage*TotalMois,
+	Result is NbPlage1 - NbPlage2.
+
+ 
+contrainteOrdonnancement(S1,P1,J1,M1,[S2,_,P2,J2,M2]):-
+	\+suitSeance(S1,S2,_,_), % les 2 seances n'ont pas besoin de se suivre 
+	\+suitSeance(S2,S1,_,_);
+	suitSeance(S1,S2,X,Y),
+	differencePlage(P1, J1, M1, P2, J2, M2, Result),
+	between(X,Y,Result);
+	suitSeance(S2,S1,X,Y),
+	differencePlage(P2, J2, M2, P1, J1, M1, Result),
+	between(X,Y,Result).
 
 % ------------------------------
 % Vérification des contraintes :
 % ------------------------------
 verificationE(Seance,Salle,Plage,Jour,Mois,Event) :-
 	contrainteEnseignant(Seance,Salle,Plage,Jour,Mois,Event),
-	contrainteGroupe(Seance,Salle,Plage,Jour,Mois,Event).
+	contrainteGroupe(Seance,Salle,Plage,Jour,Mois,Event),
+	contrainteOrdonnancement(Seance,Plage,Jour,Mois,Event).
 
 verificationEs(_,_,_,_,_,[]).
 verificationEs(Seance,Salle,Plage,Jour,Mois, [Event|Es]) :-
 	verificationE(Seance,Salle,Plage,Jour,Mois, Event),
 	verificationEs(Seance,Salle,Plage,Jour,Mois ,Es).
+
 
 % -----------------------
 % Ecrire de la solution :

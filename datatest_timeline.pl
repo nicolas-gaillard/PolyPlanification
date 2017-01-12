@@ -72,8 +72,9 @@ matiere(analysedonnees).
 
 /* Modélisation de la semaine 1 de cours des INFO4 */
 % Seance(id)
-seance(s1).
+% seance(s1).
 seance(s2).
+seance(s3).
 
 % Dates :
 % -------
