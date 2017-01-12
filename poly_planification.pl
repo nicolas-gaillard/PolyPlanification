@@ -114,9 +114,9 @@ verificationEs(Seance,Salle,Plage,Jour,Mois, [Event|Es]) :-
 	verificationEs(Seance,Salle,Plage,Jour,Mois ,Es).
 
 
-% -----------------------
-% Ecrire de la solution :
-% -----------------------
+% -------------------------
+% Ecriture de la solution :
+% -------------------------
 ecrireSolution([]) :- 
 	write("\n"),
 	write("------------------------------------------------------------------ \n"),
