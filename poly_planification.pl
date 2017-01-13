@@ -133,12 +133,8 @@ contrainteJeudi(_,Plage) :-
 verificationE(Seance,Salle,Plage,Jour,Mois,Event) :-
 	contrainteEnseignant(Seance,Salle,Plage,Jour,Mois,Event),
 	contrainteGroupe(Seance,Salle,Plage,Jour,Mois,Event).
-<<<<<<< HEAD
-	%contrainteOrdonnancement(Seance,Plage,Jour,Mois,Event)
-=======
 	%contrainteOrdonnancement(Seance,Plage,Jour,Mois,Event).
->>>>>>> 4bf996516c4041e332537c7dce063bf818704f33
-	%contrainteSequencement(Seance,Plage,Jour,Mois,Event)
+
 	
 
 verificationEs(_,_,_,_,_,[]).
@@ -214,36 +210,24 @@ planifier(ListeSeances,Solution):-
 
 	% Choix non déterministe :
 	% ------------------------
-	member(Seance,ListeSeances),
-
+	member(Seance, ListeSeances),
 	date(Jour, Mois),
 	plage(Plage,_,_),
 	salle(Salle),
 
-	% Contraintes qui ne dépendent uniquement de la date 
-	contrainteCM(Seance,Plage),
-	contrainteJeudi(Jour,Plage),
-
-	% Dernier choix déterministe :
-	member(Seance, ListeSeances),
-	
 	% Vérification des contraintes :
 	% ------------------------------
 
 	% Celles qui n'ont pas besoin de parcourir la solution :
-<<<<<<< HEAD
-	%contrainteCM(Seance,Plage),
-	%contrainteUsage(Seance,Salle),
-	%contrainteSalleLibre(Plage,Jour,Mois,Salle,Solution),
-	%contrainteTailleSalle(Seance,Salle),
-=======
+	contrainteCM(Seance,Plage),
+	contrainteJeudi(Jour,Plage),
 	contrainteUsage(Seance,Salle),
-	contrainteSalleLibre(Plage,Jour,Mois,Salle,Solution),
 	contrainteTailleSalle(Seance,Salle),
->>>>>>> 4bf996516c4041e332537c7dce063bf818704f33
+	contrainteSalleLibre(Plage,Jour,Mois,Salle,Solution),
 	
 	% Celles qui ont besoin de parcourir la solution :
 	verificationEs(Seance,Salle,Plage,Jour,Mois,Solution),
+
 
 	% Ajout de la plannification dans le résultat :
 	% ---------------------------------------------
@@ -253,6 +237,7 @@ planifier(ListeSeances,Solution):-
 	% Appel récursif de la solution :
 	% -------------------------------
 	planifier(ListeTronquee, Result).
+	
 
 % #######################################################
 % #######################################################
