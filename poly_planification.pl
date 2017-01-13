@@ -89,7 +89,7 @@ contrainteGroupe(S1,R1,P,J,M, [S2,R2,P,J,M]) :-
 	findall(G2, assiste(G2, S2), Gs2),
 	\+test_incompatibilite(Gs1, Gs2).
 
-
+% Ordonnancement des séances :
 contrainteOrdonnancement(S1,P1,J1,M1,[S2,_,P2,J2,M2]):-
 	\+suitSeance(S1,S2,_,_), % les 2 seances n'ont pas besoin de se suivre 
 	\+suitSeance(S2,S1,_,_).
@@ -103,7 +103,6 @@ contrainteOrdonnancement(S1,P1,J1,M1,[S2,_,P2,J2,M2]):-
 	between(X,Y,Result).
 
 % Contrainte du séquencement des matières
-
 contrainteSequencement(S1,P1,J1,M1,[S2,_,P2,J2,M2]):-
 	estEnseigne(S1,X),
 	estEnseigne(S2,Y),
@@ -120,7 +119,13 @@ contrainteSequencement(S1,P1,J1,M1,[S2,_,P2,J2,M2]):-
 	differencePlage(P1, J1, M1, P2, J2, M2, Result),
 	Result > 0.
 
+% Pas de cours les jeudi après midi :
+% On considère qu'un mois complet compte 20 jours travaillés
+contrainteJeudi(Jour, _) :-
+	\+(0 is mod(Jour+1, 5)).
 
+contrainteJeudi(_,Plage) :-
+	Plage < 4.
 
 % ------------------------------
 % Vérification des contraintes :
@@ -128,7 +133,11 @@ contrainteSequencement(S1,P1,J1,M1,[S2,_,P2,J2,M2]):-
 verificationE(Seance,Salle,Plage,Jour,Mois,Event) :-
 	contrainteEnseignant(Seance,Salle,Plage,Jour,Mois,Event),
 	contrainteGroupe(Seance,Salle,Plage,Jour,Mois,Event).
+<<<<<<< HEAD
 	%contrainteOrdonnancement(Seance,Plage,Jour,Mois,Event)
+=======
+	%contrainteOrdonnancement(Seance,Plage,Jour,Mois,Event).
+>>>>>>> 4bf996516c4041e332537c7dce063bf818704f33
 	%contrainteSequencement(Seance,Plage,Jour,Mois,Event)
 	
 
@@ -211,15 +220,27 @@ planifier(ListeSeances,Solution):-
 	plage(Plage,_,_),
 	salle(Salle),
 
+	% Contraintes qui ne dépendent uniquement de la date 
+	contrainteCM(Seance,Plage),
+	contrainteJeudi(Jour,Plage),
+
+	% Dernier choix déterministe :
+	member(Seance, ListeSeances),
 	
 	% Vérification des contraintes :
 	% ------------------------------
 
 	% Celles qui n'ont pas besoin de parcourir la solution :
+<<<<<<< HEAD
 	%contrainteCM(Seance,Plage),
 	%contrainteUsage(Seance,Salle),
 	%contrainteSalleLibre(Plage,Jour,Mois,Salle,Solution),
 	%contrainteTailleSalle(Seance,Salle),
+=======
+	contrainteUsage(Seance,Salle),
+	contrainteSalleLibre(Plage,Jour,Mois,Salle,Solution),
+	contrainteTailleSalle(Seance,Salle),
+>>>>>>> 4bf996516c4041e332537c7dce063bf818704f33
 	
 	% Celles qui ont besoin de parcourir la solution :
 	verificationEs(Seance,Salle,Plage,Jour,Mois,Solution),
