@@ -1,17 +1,19 @@
 seances(multimedia, cm, [id4], [jpguedon],
 	[s1,s6,s29,s63,s64]).
 seances(multimedia, tp, [id4], [mgelgon],
-	[s43]).
+	[s43,s82]).
+seances(multimedia, cm, [id4], [mgelgon],
+	[s104]).
 
 
 seances(cpp, cm, [id4,silr1,silr2], [fpicarougne],
 	[s2,s17,s27,s36,s54,s58]).
 seances(cpp, tp, [id4], [srouibia],
-	[s57]).
+	[s57,s103]).
 seances(cpp, tp, [silr1], [amilliat],
-	[s61]).
-seances(cpp, tp, [silr2], [amilliat],
-	[s65]).
+	[s61,s83]).
+seances(cpp, tp, [silr2], [fpicarougne],
+	[s65,s105]).
 
 
 seances(genieLogiciel, cm, [id4,silr1,silr2], [mbarkowsky],
@@ -35,7 +37,11 @@ seances(bdd,td,[silr2], [mpnachouki],
 seances(bdd,td,[id4], [graschia],
 	[s41,s72]).
 seances(bdd,tp,[id4], [graschia],
-	[s46,s47]).
+	[s46,s47,s97,s98]).
+seances(bdd,tp,[silr2], [mpnachouki],
+	[s95,s96]).
+seances(bdd,tp,[silr1], [mpnachouki],
+	[s101,s102]).
 
 
 seances(modeleAleatoire, cm, [silr1,silr2], [vricordel],
@@ -80,20 +86,28 @@ seances(marketing, td, [id4], [loili],
 	[s50,s51,s77,s78]).
 
 
-seances(patrons, [id4,silr1,silr2], [apigeau],
+seances(patrons, cm, [id4,silr1,silr2], [apigeau],
 	[s55,s66,s71]).
+seances(patrons,td,[silr1], [yprie],
+	[s99]).
+seances(patrons,td,[silr2], [apigeau],
+	[s100]).
 
 
-seances(anglais, [id4,silr1,silr2], [profAnglais],
+seances(anglais,td, [id4,silr1,silr2], [profAnglais],
 	[s56]).
 
 
-seances(sport, [id4,silr1,silr2], [profSport],
-	[s59]).
+seances(sport,td, [id4,silr1,silr2], [profSport],
+	[s59,s84]).
 
 
-seances(ptrans, [id4,silr1,silr2], [profPtrans],
+seances(ptrans,ptrans,[id4,silr1,silr2], [profPtrans],
 	[s67,s68]).
+
+
+seances(simulation,td,[id4,silr1,silr2], [cgoncalves,jmoreau],
+	[s79,s80,s81,s85,s86,s87,s88,s89,s90,s91,s92,s93,s94]).
 
 % Les options (Espagnol, Anglais Renforcé) ne sont pas présentes ainsi que les cours de Français
 % Les tiers temps ne sont pas comptabilisés
