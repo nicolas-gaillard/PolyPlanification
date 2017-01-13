@@ -1,5 +1,6 @@
 % Import du fichier dataset.pl
 :- [datatest_timeline].
+:- use_module(library(statistics)).
 
 % ------------------
 % Prédicats utiles :
@@ -102,23 +103,6 @@ contrainteOrdonnancement(S1,P1,J1,M1,[S2,_,P2,J2,M2]):-
 	differencePlage(P2, J2, M2, P1, J1, M1, Result),
 	between(X,Y,Result).
 
-% Contrainte du séquencement des matières
-contrainteSequencement(S1,P1,J1,M1,[S2,_,P2,J2,M2]):-
-	estEnseigne(S1,X),
-	estEnseigne(S2,Y),
-	\+precedeMatiere(X,Y),
-	\+precedeMatiere(Y,X);
-	estEnseigne(S1,X),
-	estEnseigne(S2,Y),
-	precedeMatiere(X,Y),
-	differencePlage(P1, J1, M1, P2, J2, M2, Result),
-	Result < 0;
-	estEnseigne(S1,X),
-	estEnseigne(S2,Y),
-	precedeMatiere(Y,X),
-	differencePlage(P1, J1, M1, P2, J2, M2, Result),
-	Result > 0.
-
 % Pas de cours les jeudi après midi :
 % On considère qu'un mois complet compte 20 jours travaillés
 contrainteJeudi(Jour, _) :-
@@ -134,14 +118,11 @@ verificationE(Seance,Salle,Plage,Jour,Mois,Event) :-
 	contrainteEnseignant(Seance,Salle,Plage,Jour,Mois,Event),
 	contrainteGroupe(Seance,Salle,Plage,Jour,Mois,Event).
 	%contrainteOrdonnancement(Seance,Plage,Jour,Mois,Event).
-	%contrainteSequencement(Seance,Plage,Jour,Mois,Event)
 	
-
 verificationEs(_,_,_,_,_,[]).
 verificationEs(Seance,Salle,Plage,Jour,Mois, [Event|Es]) :-
 	verificationE(Seance,Salle,Plage,Jour,Mois, Event),
 	verificationEs(Seance,Salle,Plage,Jour,Mois ,Es).
-
 
 % -------------------------
 % Ecriture de la solution :
@@ -202,27 +183,24 @@ planifier(ListeSeances,Solution):-
 
 	% Choix non déterministe :
 	% ------------------------
+	member(Seance, ListeSeances),
 	date(Jour, Mois),
 	plage(Plage,_,_),
 	salle(Salle),
 
-	% Contraintes qui ne dépendent uniquement de la date 
-	contrainteCM(Seance,Plage),
-	contrainteJeudi(Jour,Plage),
-
-	% Dernier choix déterministe :
-	member(Seance, ListeSeances),
-	
 	% Vérification des contraintes :
 	% ------------------------------
 
 	% Celles qui n'ont pas besoin de parcourir la solution :
+	contrainteCM(Seance,Plage),
+	contrainteJeudi(Jour,Plage),
 	contrainteUsage(Seance,Salle),
-	contrainteSalleLibre(Plage,Jour,Mois,Salle,Solution),
 	contrainteTailleSalle(Seance,Salle),
+	contrainteSalleLibre(Plage,Jour,Mois,Salle,Solution),
 	
 	% Celles qui ont besoin de parcourir la solution :
 	verificationEs(Seance,Salle,Plage,Jour,Mois,Solution),
+
 
 	% Ajout de la plannification dans le résultat :
 	% ---------------------------------------------
@@ -243,4 +221,7 @@ faire_planification(Solution):-
 
 faire_planification():-
 	faire_planification([]).
+
+% Statistiques de l'execution du prédicat :
+run() :- profile(faire_planification([])).
 
