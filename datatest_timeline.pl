@@ -286,8 +286,6 @@ typeSeance(s28, tp).*/
 suitSeance(s1,s6,6,18).
 suitSeance(s6,s7,6,18).
 suitSeance(s7,s3,6,18).
-
-
 suitSeance(s3,s2,6,18).
 suitSeance(s5,s4,0,18).
 suitSeance(s9,s8,0,18).
@@ -295,7 +293,6 @@ suitSeance(s10,s8,6,18).
 uitSeance(s11,s10,0,18).
 suitSeance(s13,s7,6,18).
 suitSeance(s14,s13,0,18).
-suitSeance(s15,s11,6,18).
 suitSeance(s15,s9,6,18).
 suitSeance(s19,s18,0,18).
 suitSeance(s21,s20,0,18).
@@ -488,8 +485,8 @@ seances(progPara, cm, [id4], [jmartinez],
 	[s11,s14]).
 seances(progPara, td, [id4], [jmartinez], 
 	[s26,s33]).
-seances(progPara, td, [id4], [jmartinez], 
-	[s26,s33]).
+/*seances(progPara, td, [id4], [jmartinez], 
+	[s26,s33]).*/
 seances(progPara, ds, [id4], [jmartinez], 
 	[s69]).
 
