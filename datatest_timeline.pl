@@ -282,7 +282,9 @@ typeSeance(s28, tp).*/
  un temps d'assimilation (par défaut le nb de scéances min étant de 6 et le
  max de 24) :
 */
-suitSeance(s3,s2,6,18).
+
+suitSeance(s1,s6,6,18).
+/*suitSeance(s3,s2,6,18).
 suitSeance(s5,s4,0,18).
 suitSeance(s7,s6,0,18).
 suitSeance(s9,s8,0,18).
@@ -296,7 +298,7 @@ suitSeance(s19,s18,0,18).
 suitSeance(s21,s20,0,18).
 suitSeance(s25,s24,0,24).
 suitSeance(s27,s26,0,24).
-suitSeance(s28,s15,6,24).
+suitSeance(s28,s15,6,24).*/
 
 % Seance (id) - Groupe d'élèves :
 /*assiste(silr1,s1).
@@ -428,6 +430,11 @@ precedeMatiere(projetia,traitementimg).
 precedeMatiere(ia,projetia).
 precedeMatiere(analysedonnees,optimetaheuristiques).
 
+
+seances(multimedia, cm, [id4], [jpguedon],
+	[s1,s6]).
+
+/*
 seances(multimedia, cm, [id4], [jpguedon],
 	[s1,s6,s29,s63,s64]).
 seances(multimedia, tp, [id4], [mgelgon],
@@ -523,7 +530,7 @@ seances(sport,td, [id4,silr1,silr2], [profSport],
 
 
 seances(ptrans,ptrans, [id4,silr1,silr2], [profPtrans],
-	[s67,s68]).
+	[s67,s68]).*/
 
 % Les options (Espagnol, Anglais Renforcé) ne sont pas présentes ainsi que les cours de Français
 % Les tiers temps ne sont pas comptabilisés

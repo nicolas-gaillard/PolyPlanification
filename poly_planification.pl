@@ -92,10 +92,12 @@ contrainteGroupe(S1,R1,P,J,M, [S2,R2,P,J,M]) :-
 
 contrainteOrdonnancement(S1,P1,J1,M1,[S2,_,P2,J2,M2]):-
 	\+suitSeance(S1,S2,_,_), % les 2 seances n'ont pas besoin de se suivre 
-	\+suitSeance(S2,S1,_,_);
+	\+suitSeance(S2,S1,_,_).
+contrainteOrdonnancement(S1,P1,J1,M1,[S2,_,P2,J2,M2]):-
 	suitSeance(S1,S2,X,Y),
 	differencePlage(P1, J1, M1, P2, J2, M2, Result),
-	between(X,Y,Result);
+	between(X,Y,Result).
+contrainteOrdonnancement(S1,P1,J1,M1,[S2,_,P2,J2,M2]):-
 	suitSeance(S2,S1,X,Y),
 	differencePlage(P2, J2, M2, P1, J1, M1, Result),
 	between(X,Y,Result).
@@ -124,8 +126,8 @@ contrainteSequencement(S1,P1,J1,M1,[S2,_,P2,J2,M2]):-
 % Vérification des contraintes :
 % ------------------------------
 verificationE(Seance,Salle,Plage,Jour,Mois,Event) :-
-	contrainteEnseignant(Seance,Salle,Plage,Jour,Mois,Event),
-	contrainteGroupe(Seance,Salle,Plage,Jour,Mois,Event),
+	%contrainteEnseignant(Seance,Salle,Plage,Jour,Mois,Event),
+	%contrainteGroupe(Seance,Salle,Plage,Jour,Mois,Event).
 	contrainteOrdonnancement(Seance,Plage,Jour,Mois,Event).
 	%contrainteSequencement(Seance,Plage,Jour,Mois,Event)
 	
@@ -195,22 +197,23 @@ planifier(ListeSeances,Solution):-
 
 	% Choix non déterministe :
 	% ------------------------
-	member(Seance, ListeSeances),
 	date(Jour, Mois),
 	plage(Plage,_,_),
 	salle(Salle),
+	member(Seance, ListeSeances),
+
 	
 	% Vérification des contraintes :
 	% ------------------------------
 
 	% Celles qui n'ont pas besoin de parcourir la solution :
 	contrainteCM(Seance,Plage),
-	%contrainteUsage(Seance,Salle),
-	%contrainteSalleLibre(Plage,Jour,Mois,Salle,Solution),
-	%contrainteTailleSalle(Seance,Salle),
+	contrainteUsage(Seance,Salle),
+	contrainteSalleLibre(Plage,Jour,Mois,Salle,Solution),
+	contrainteTailleSalle(Seance,Salle),
 	
 	% Celles qui ont besoin de parcourir la solution :
-	% verificationEs(Seance,Salle,Plage,Jour,Mois,Solution),
+	verificationEs(Seance,Salle,Plage,Jour,Mois,Solution),
 
 	% Ajout de la plannification dans le résultat :
 	% ---------------------------------------------
