@@ -284,12 +284,15 @@ typeSeance(s28, tp).*/
 */
 
 suitSeance(s1,s6,6,18).
-/*suitSeance(s3,s2,6,18).
+suitSeance(s6,s7,6,18).
+suitSeance(s7,s3,6,18).
+
+
+suitSeance(s3,s2,6,18).
 suitSeance(s5,s4,0,18).
-suitSeance(s7,s6,0,18).
 suitSeance(s9,s8,0,18).
 suitSeance(s10,s8,6,18).
-suitSeance(s11,s10,0,18).
+uitSeance(s11,s10,0,18).
 suitSeance(s13,s7,6,18).
 suitSeance(s14,s13,0,18).
 suitSeance(s15,s11,6,18).
@@ -298,7 +301,7 @@ suitSeance(s19,s18,0,18).
 suitSeance(s21,s20,0,18).
 suitSeance(s25,s24,0,24).
 suitSeance(s27,s26,0,24).
-suitSeance(s28,s15,6,24).*/
+suitSeance(s28,s15,6,24).
 
 % Seance (id) - Groupe d'élèves :
 /*assiste(silr1,s1).
@@ -431,8 +434,6 @@ precedeMatiere(ia,projetia).
 precedeMatiere(analysedonnees,optimetaheuristiques).
 
 
-seances(multimedia, cm, [id4], [jpguedon],
-	[s1,s6]).
 
 
 seances(multimedia, cm, [id4], [jpguedon],
