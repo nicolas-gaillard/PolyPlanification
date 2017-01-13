@@ -131,11 +131,11 @@ seances(patrons,td,[silr2], [apigeau],
 	[s100]).
 
 
-seances(anglais,td, [id4,silr1,silr2], [profAnglais],
+seances(anglais,anglais, [id4,silr1,silr2], [profAnglais],
 	[s56]).
 
 
-seances(sport,td, [id4,silr1,silr2], [profSport],
+seances(sport,sport, [id4,silr1,silr2], [profSport],
 	[s59,s84]).
 
 

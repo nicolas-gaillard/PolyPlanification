@@ -48,3 +48,36 @@ differencePlage(P1, J1, M1, P2, J2, M2, Result) :-
 	Result is NbPlage2 - NbPlage1.
 
 % Voir question du signe : un signe - permet de dire que la séance passé en second est 
+
+
+priorite(Seance,Indicateur):-
+	aggregate_all(count, is_man(X), Count).
+
+
+seances('TD_C++',cpp,cm,id4,hlecapitaine,[
+	s1,
+	s2,
+	s3,
+	s4]).
+
+
+
+% On génère la base de donnée dynamique des séances et des prédicats en lien
+:- forall(
+    seances(Matiere,Type,Groupes, Profs, Seances),
+    (
+        creerSeances(Matiere,Type,Groupes, Profs, Seances)
+    )
+).
+
+
+creerSeances(Matiere,Type,Groupes,Profs,[]).
+creerSeances(Matiere, Type, Prof,Groupes, Profs, [Seance|Y]):-
+	assert(seance(Seance)),
+	assert(estEnseigne(Seance,Matiere)),
+	forall(member(Profs, Prof),
+		assert(anime(Seance, Prof))),
+	forall(member(Groupes, Groupe),
+		assert(assiste(Groupe, Seance))),
+	assert(typeSeance(Seance,Type)),
+	creerSeances(Matiere, Type, Prof,Groupes, Profs,Y).

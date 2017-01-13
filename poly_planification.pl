@@ -124,10 +124,10 @@ contrainteSequencement(S1,P1,J1,M1,[S2,_,P2,J2,M2]):-
 % Vérification des contraintes :
 % ------------------------------
 verificationE(Seance,Salle,Plage,Jour,Mois,Event) :-
-	%contrainteEnseignant(Seance,Salle,Plage,Jour,Mois,Event),
-	%contrainteGroupe(Seance,Salle,Plage,Jour,Mois,Event),
-	contrainteOrdonnancement(Seance,Plage,Jour,Mois,Event),
-	contrainteSequencement(Seance,Plage,Jour,Mois,Event).
+	contrainteEnseignant(Seance,Salle,Plage,Jour,Mois,Event),
+	contrainteGroupe(Seance,Salle,Plage,Jour,Mois,Event),
+	contrainteOrdonnancement(Seance,Plage,Jour,Mois,Event).
+	%contrainteSequencement(Seance,Plage,Jour,Mois,Event)
 	
 
 verificationEs(_,_,_,_,_,[]).
@@ -204,10 +204,10 @@ planifier(ListeSeances,Solution):-
 	% ------------------------------
 
 	% Celles qui n'ont pas besoin de parcourir la solution :
-	% contrainteCM(Seance,Plage),
-	% contrainteUsage(Seance,Salle),
-	% contrainteSalleLibre(Plage,Jour,Mois,Salle,Solution),
-	% contrainteTailleSalle(Seance,Salle),
+	contrainteCM(Seance,Plage),
+	contrainteUsage(Seance,Salle),
+	contrainteSalleLibre(Plage,Jour,Mois,Salle,Solution),
+	contrainteTailleSalle(Seance,Salle),
 	
 	% Celles qui ont besoin de parcourir la solution :
 	verificationEs(Seance,Salle,Plage,Jour,Mois,Solution),
@@ -231,3 +231,4 @@ faire_planification(Solution):-
 
 faire_planification():-
 	faire_planification([]).
+

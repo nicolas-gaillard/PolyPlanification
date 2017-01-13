@@ -19,6 +19,22 @@ enseignant(cgoncalves).
 enseignant(fbigeard).
 enseignant(pkuntz).
 enseignant(pdasilva).
+enseignant(fpicarougne).
+enseignant(srouibia).
+enseignant(amilliat).
+enseignant(mbarkowsky).
+enseignant(yprie).
+enseignant(graschia).
+enseignant(mpnachouki).
+enseignant(vricordel).
+enseignant(jmartinez).
+enseignant(sporcheron).
+enseignant(loili).
+enseignant(apigeau).
+enseignant(cgoncalves).
+enseignant(jmoreau).
+enseignant(profAnglais).
+enseignant(profPtrans).
 
 % Groupe d'eleves 
 groupeEleve(id4).
@@ -35,6 +51,10 @@ salle(d012).
 salle(d004).
 salle(a2).
 salle(b001).
+salle(gymnase).
+salle(projet).
+salle(anglais).
+salle(nautilus).
 
 % Taille des groupes (arbitraire) et des salles 
 taille(id4, 25).
@@ -48,6 +68,10 @@ taille(d012, 30). % Anciennement 24
 taille(d004, 65).
 taille(a2, 160).
 taille(b001, 15).
+taille(gymnase, 500).
+taille(projet,150).
+taille(anglais,150).
+taille(nautilus,150).
 
 % Type de cours (ou usages) 
 typeCours(ds).
@@ -57,6 +81,8 @@ typeCours(tp).
 typeCours(reunion).
 typeCours(cm).
 typeCours(projet).
+typeCours(sport).
+typeCours(anglais).
 
 % Matieres 
 /* "Prototype" : Matiere(id) */
@@ -69,13 +95,50 @@ matiere(ptrans).
 matiere(gestionconnaissances).
 matiere(optimetaheuristiques).
 matiere(analysedonnees).
+matiere(multimedia).
+matiere(cpp).
+matiere(bdd).
+matiere(genieLogiciel).
+matiere(gestionProjet).
+matiere(modeleAleatoire).
+matiere(progPara).
+matiere(analDonnees).
+matiere(anglais).
+matiere(sport).
+matiere(marketing).
+matiere(patrons).
+matiere(simulation).
 
 /* Modélisation de la semaine 1 de cours des INFO4 */
 % Seance(id)
-seance(s1).
+/*seance(s1).
 seance(s2).
 seance(s3).
-
+seance(s4).
+seance(s5).
+seance(s6).
+seance(s7).
+seance(s8). % <-- Non respect de la contrainte (CM sur créneau 6)
+seance(s9).
+seance(s10).
+seance(s11).
+seance(s12).
+seance(s13).
+seance(s14).
+seance(s15). % <-- Non respect de la contrainte (CM sur créneau 6)
+seance(s16).
+seance(s17).
+seance(s18).
+seance(s19).
+seance(s20).
+seance(s21).
+seance(s22).
+seance(s23).
+seance(s24).
+seance(s25).
+seance(s26).
+seance(s27).
+seance(s28).*/
 % Dates :
 % -------
 
@@ -146,9 +209,14 @@ usageSalle(a2, ds).
 usageSalle(b001, tp).
 usageSalle(b001, dsmachine).
 usageSalle(b001, mp).
+usageSalle(gymnase,sport).
+usageSalle(projet,ptrans).
+usageSalle(anglais,anglais).
+usageSalle(nautilus,td).
+usageSalle(nautilus,cm).
 
 % Enseignant - Matière :
-enseigne(mgelgon, traitementimg).
+/*enseigne(mgelgon, traitementimg).
 enseigne(jpguedon, traitementimg).
 enseigne(hlecapitaine, projetia).
 enseigne(graschia, projetia).
@@ -157,10 +225,10 @@ enseigne(fleman, projetia).
 enseigne(rlehn, reseaux3).
 enseigne(cgoncalves, comptabilite).
 enseigne(fbigeard, gestionconnaissances).
-enseigne(pkuntz, optimetaheuristiques).
+enseigne(pkuntz, optimetaheuristiques).*/
 
 % Matière - Groupe d'élèves :
-etudie(silr1, traitementimg).
+/*etudie(silr1, traitementimg).
 etudie(silr2, traitementimg).
 etudie(silr1, projetia).
 etudie(silr2, projetia).
@@ -177,10 +245,10 @@ etudie(id4, gestionconnaissances).
 etudie(silr1, optimetaheuristiques).
 etudie(silr2, optimetaheuristiques).
 etudie(id4, optimetaheuristiques).
-etudie(info4, optimetaheuristiques).
+etudie(info4, optimetaheuristiques).*/
 
 % Seance (id) - Type de cours :
-typeSeance(s1, ds).
+/*typeSeance(s1, ds).
 typeSeance(s2, tp).
 typeSeance(s3, tp).
 typeSeance(s4, tp).
@@ -207,7 +275,7 @@ typeSeance(s24, tp).
 typeSeance(s25, tp).
 typeSeance(s26, tp).
 typeSeance(s27, tp).
-typeSeance(s28, tp).
+typeSeance(s28, tp).*/
 
 /* 
  Relation sur l'ordonnancement des scéances d'une même matière suivant
@@ -231,7 +299,7 @@ suitSeance(s27,s26,0,24).
 suitSeance(s28,s15,6,24).
 
 % Seance (id) - Groupe d'élèves :
-assiste(silr1,s1).
+/*assiste(silr1,s1).
 assiste(silr2,s1).
 assiste(id4,s2).
 assiste(id4,s3).
@@ -267,16 +335,23 @@ assiste(silr2,s24).
 assiste(silr2,s25).
 assiste(id4,s26).
 assiste(id4,s27).
-assiste(silr2,s28).
+assiste(silr2,s28).*/
+% :-dynamic(assiste/2).
 
-assiste(Groupe,[]).
-assiste(Groupe,[T|Q]):-
+assistent(Groupe,[]).
+assistent(Groupe,[T|Q]):-
 	assiste(Groupe,T),
-	assiste(Groupe,Q).
+	assistent(Groupe,Q).
+
+/*assistent([],Groupe).
+assistent([X|Y],Groupe):-
+	assiste(X,Groupe),
+	assistent(Y,Groupe).*/
+
 
 
 % Seance (id) - Enseignant :
-anime(s1,jpguedon).
+/*anime(s1,jpguedon).
 anime(s1,mgelgon).
 anime(s1,hlecapitaine).
 anime(s2,hlecapitaine).
@@ -309,10 +384,17 @@ anime(s25,graschia).
 anime(s26,hlecapitaine).
 anime(s27,hlecapitaine).
 anime(s28,rlehn).
-anime(s28,fleman).
+anime(s28,fleman).*/
+
+/*anime(Seance,[]).
+anime(Seance,[X,Y]):-
+	anime(Seance,X),
+	anime(Seance,Y).*/
+
+
 
 % Seance - Matière :
-estEnseigne(s1, traitementimg).
+/*estEnseigne(s1, traitementimg).
 estEnseigne(s2, projetia).
 estEnseigne(s3, projetia).
 estEnseigne(s4, projetia).
@@ -339,9 +421,162 @@ estEnseigne(s24, projetia).
 estEnseigne(s25, projetia).
 estEnseigne(s26, projetia).
 estEnseigne(s27, projetia).
-estEnseigne(s28, reseaux3).
+estEnseigne(s28, reseaux3).*/
 
 % Contrainte de l'ordonnancement des matières :
 precedeMatiere(projetia,traitementimg).
 precedeMatiere(ia,projetia).
 precedeMatiere(analysedonnees,optimetaheuristiques).
+
+seances(multimedia, cm, [id4], [jpguedon],
+	[s1,s6,s29,s63,s64]).
+seances(multimedia, tp, [id4], [mgelgon],
+	[s43]).
+
+
+seances(cpp, cm, [id4,silr1,silr2], [fpicarougne],
+	[s2,s17,s27,s36,s54,s58]).
+seances(cpp, tp, [id4], [srouibia],
+	[s57]).
+seances(cpp, tp, [silr1], [amilliat],
+	[s61]).
+seances(cpp, tp, [silr2], [amilliat],
+	[s65]).
+
+
+seances(genieLogiciel, cm, [id4,silr1,silr2], [mbarkowsky],
+	[s3,s4,s25,s37,s45,s52]).
+seances(genieLogiciel, cm, [id4,silr1,silr2], [yprie],
+	[s5,s7]).
+seances(genieLogiciel, td, [silr2], [yprie], 
+	[s8]).
+seances(genieLogiciel, td, [silr1], [yprie], 
+	[s12]).
+seances(genieLogiciel, td, [id4], [yprie], 
+	[s18]).
+
+
+seances(bdd, cm, [id4,silr1,silr2], [graschia],
+	[s9,s21,s30,s35,s62]).
+seances(bdd,td,[silr1], [mpnachouki],
+	[s34,s76]).
+seances(bdd,td,[silr2], [mpnachouki],
+	[s39,s70]).
+seances(bdd,td,[id4], [graschia],
+	[s41,s72]).
+seances(bdd,tp,[id4], [graschia],
+	[s46,s47]).
+
+
+seances(modeleAleatoire, cm, [silr1,silr2], [vricordel],
+	[s10,s13,s19,s28]).
+seances(modeleAleatoire, td, [silr1], [vricordel],
+	[s15, s31]).
+seances(modeleAleatoire, td, [silr2], [bparrein],
+	[s16,s32]).
+
+
+seances(progPara, cm, [id4], [jmartinez], 
+	[s11,s14]).
+seances(progPara, td, [id4], [jmartinez], 
+	[s26,s33]).
+seances(progPara, td, [id4], [jmartinez], 
+	[s26,s33]).
+seances(progPara, ds, [id4], [jmartinez], 
+	[s69]).
+
+
+seances(analDonnees, cm, [id4], [pkuntz],
+	[s20,s22,s38,s53,s60,s73]).
+
+
+seances(ptrans, cm, [id4,silr1,silr2], [jpguedon],
+	[s23]).
+seances(ptrans, cm, [id4,silr1,silr2], [mbarkowsky],
+	[s24]).
+
+
+seances(gestionProjet, td, [id4], [sporcheron],
+	[s40]).
+seances(gestionProjet, td, [silr1], [sporcheron],
+	[s42]).
+seances(gestionProjet, td, [silr1], [sporcheron],
+	[s44]).
+
+
+seances(marketing, cm, [silr1,silr2], [loili],
+	[s48,s49,s74,s75]).
+seances(marketing, td, [id4], [loili],
+	[s50,s51,s77,s78]).
+
+
+seances(patrons,cm, [id4,silr1,silr2], [apigeau],
+	[s55,s66,s71]).
+
+
+seances(anglais,td, [id4,silr1,silr2], [profAnglais],
+	[s56]).
+
+
+seances(sport,td, [id4,silr1,silr2], [profSport],
+	[s59]).
+
+
+seances(ptrans,ptrans, [id4,silr1,silr2], [profPtrans],
+	[s67,s68]).
+
+% Les options (Espagnol, Anglais Renforcé) ne sont pas présentes ainsi que les cours de Français
+% Les tiers temps ne sont pas comptabilisés
+
+
+/*:-dynamic(anime/2).
+:-dynamic(seance/1).
+:-dynamic(estEnseigne/2).
+:-dynamic(anime/2).
+:-dynamic(anime/2).
+:-dynamic(anime/2).*/
+
+:-dynamic(enseigne/2).
+:-dynamic(etudie/2).
+
+
+
+
+creerSeances(Matiere,Type,Groupes,Profs,[]).
+creerSeances(Matiere, Type,Groupes, Profs, [Seance|Y]):-
+	assertz(seance(Seance)),
+	assertz(estEnseigne(Seance,Matiere)),
+	forall(member(Prof, Profs),
+		(
+			assertz(anime(Seance, Prof)),
+			enseigne(Prof,Matiere);
+			assertz(anime(Seance, Prof)),
+			assertz(enseigne(Prof,Matiere)) % merde
+		)
+	),	
+	forall(member(Groupe, Groupes),
+		(
+			assertz(assiste(Groupe, Seance)),
+			etudie(Groupe,Matiere);
+			assertz(assiste(Groupe, Seance)),
+			assertz(etudie(Groupe, Matiere)) % merde
+		)
+	),
+	assertz(typeSeance(Seance,Type)),
+	creerSeances(Matiere,Type,Groupes, Profs,Y).
+
+
+:- forall(
+    seances(Matiere,Type,Groupes,Profs,Seances),
+    (
+        creerSeances(Matiere,Type,Groupes,Profs,Seances)
+    )
+).
+
+
+/*calculIndicateur(Seance,Result):-
+	suitSeance(Seance,Y)
+
+priorite(Seance,Indicateur):-
+	suitSeance(Seance,Y),
+	aggregate_all(count, suitSeance(Seance,Y), Count).*/
