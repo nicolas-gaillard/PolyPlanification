@@ -96,13 +96,13 @@ contrainteEnseignant(S1,R1,P,J,M, [S2,R2,P,J,M]) :-
 	\+better_intersection(Ps1, Ps2).
 
 % Des groupe(s) incompatible(s) ne peuvent avoir cours en même temps :
-/*contrainteGroupe(S1,R1,P1,J1,M1, [S2,R2,P2,J2,M2]) :-
+
+contrainteGroupe(S1,R1,P1,J1,M1, [S2,R2,P2,J2,M2]) :-
 	P1\=P2,
 	J1=J2,
 	M1=M2;
 	J1\=J2;
-	M1\=M2.*/
-
+	M1\=M2.
 contrainteGroupe(S1,R1,P,J,M, [S2,R2,P,J,M]) :-
 	P1=P2,
 	J1=J2,
@@ -110,7 +110,7 @@ contrainteGroupe(S1,R1,P,J,M, [S2,R2,P,J,M]) :-
 	findall(G1, assiste(G1, S1), Gs1),
 	findall(G2, assiste(G2, S2), Gs2),
 	\+test_incompatibilite(Gs1, Gs2).
-contrainteGroupe(S1,R1,P1,J1,M1, [S2,R2,P2,J2,M2]).
+%contrainteGroupe(S1,R1,P1,J1,M1, [S2,R2,P2,J2,M2]).
 
 
 % Ordonnancement des séances :
@@ -139,8 +139,8 @@ contrainteJeudi(_,Plage) :-
 % ------------------------------
 verificationE(Seance,Salle,Plage,Jour,Mois,Event) :-
 	contrainteEnseignant(Seance,Salle,Plage,Jour,Mois,Event),
-	contrainteGroupe(Seance,Salle,Plage,Jour,Mois,Event),
-	contrainteOrdonnancement(Seance,Plage,Jour,Mois,Event).
+	contrainteGroupe(Seance,Salle,Plage,Jour,Mois,Event).
+	%contrainteOrdonnancement(Seance,Plage,Jour,Mois,Event).
 	
 verificationEs(_,_,_,_,_,[]).
 verificationEs(Seance,Salle,Plage,Jour,Mois, [Event|Es]) :-
@@ -216,7 +216,7 @@ planifier(ListeSeances,Solution):-
 	% ------------------------------
 
 	% Celles qui n'ont pas besoin de parcourir la solution :
-	contrainteCM(Seance,Plage),
+	%(Seance,Plage),
 	contrainteJeudi(Jour,Plage),
 	contrainteUsage(Seance,Salle),
 	contrainteTailleSalle(Seance,Salle),

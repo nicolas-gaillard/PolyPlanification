@@ -273,8 +273,6 @@ seances(progPara, cm, [id4], [jmartinez],
 	[s11,s14]).
 seances(progPara, td, [id4], [jmartinez], 
 	[s26,s33]).
-/*seances(progPara, td, [id4], [jmartinez], 
-	[s26,s33]).*/
 seances(progPara, ds, [id4], [jmartinez], 
 	[s69]).
 
