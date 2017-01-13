@@ -536,8 +536,13 @@ seances(ptrans,ptrans, [id4,silr1,silr2], [profPtrans],
 :-dynamic(anime/2).
 :-dynamic(anime/2).*/
 
+:-dynamic(seance/1).
+:-dynamic(estEnseigne/2).
+:-dynamic(anime/2).
 :-dynamic(enseigne/2).
 :-dynamic(etudie/2).
+:-dynamic(assiste/2).
+:-dynamic(typeSeance/2).
 
 
 

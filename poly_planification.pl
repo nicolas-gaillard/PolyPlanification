@@ -40,9 +40,9 @@ differencePlage(P1, J1, M1, P2, J2, M2, Result) :-
 contrainteCM(Seance,Plage) :-
 	\+typeSeance(Seance,cm).
 contrainteCM(Seance,Plage) :-
-		Plage \= plage(1,_,_);
-		Plage \= plage(4,_,_);
-		Plage \= plage(6,_,_).
+		Plage = 2;
+		Plage = 5;
+		Plage = 3.
 
 % La salle est adapté au cours :
 contrainteUsage(S,R) :-
@@ -205,9 +205,9 @@ planifier(ListeSeances,Solution):-
 
 	% Celles qui n'ont pas besoin de parcourir la solution :
 	contrainteCM(Seance,Plage),
-	contrainteUsage(Seance,Salle),
-	contrainteSalleLibre(Plage,Jour,Mois,Salle,Solution),
-	contrainteTailleSalle(Seance,Salle),
+	%contrainteUsage(Seance,Salle),
+	%contrainteSalleLibre(Plage,Jour,Mois,Salle,Solution),
+	%contrainteTailleSalle(Seance,Salle),
 	
 	% Celles qui ont besoin de parcourir la solution :
 	% verificationEs(Seance,Salle,Plage,Jour,Mois,Solution),
