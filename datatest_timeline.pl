@@ -548,16 +548,16 @@ creerSeances(Matiere, Type,Groupes, Profs, [Seance|Y]):-
 	assertz(estEnseigne(Seance,Matiere)),
 	forall(member(Prof, Profs),
 		(
-			assertz(anime(Seance, Prof)),
-			enseigne(Prof,Matiere);
+			enseigne(Prof,Matiere),
+			assertz(anime(Seance, Prof));
 			assertz(anime(Seance, Prof)),
 			assertz(enseigne(Prof,Matiere)) % merde
 		)
 	),	
 	forall(member(Groupe, Groupes),
 		(
-			assertz(assiste(Groupe, Seance)),
-			etudie(Groupe,Matiere);
+			etudie(Groupe,Matiere),
+			assertz(assiste(Groupe, Seance));
 			assertz(assiste(Groupe, Seance)),
 			assertz(etudie(Groupe, Matiere)) % merde
 		)

@@ -210,7 +210,7 @@ planifier(ListeSeances,Solution):-
 	contrainteTailleSalle(Seance,Salle),
 	
 	% Celles qui ont besoin de parcourir la solution :
-	verificationEs(Seance,Salle,Plage,Jour,Mois,Solution),
+	% verificationEs(Seance,Salle,Plage,Jour,Mois,Solution),
 
 	% Ajout de la plannification dans le résultat :
 	% ---------------------------------------------
