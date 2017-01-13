@@ -109,36 +109,6 @@ matiere(marketing).
 matiere(patrons).
 matiere(simulation).
 
-/* Modélisation de la semaine 1 de cours des INFO4 */
-% Seance(id)
-/*seance(s1).
-seance(s2).
-seance(s3).
-seance(s4).
-seance(s5).
-seance(s6).
-seance(s7).
-seance(s8). % <-- Non respect de la contrainte (CM sur créneau 6)
-seance(s9).
-seance(s10).
-seance(s11).
-seance(s12).
-seance(s13).
-seance(s14).
-seance(s15). % <-- Non respect de la contrainte (CM sur créneau 6)
-seance(s16).
-seance(s17).
-seance(s18).
-seance(s19).
-seance(s20).
-seance(s21).
-seance(s22).
-seance(s23).
-seance(s24).
-seance(s25).
-seance(s26).
-seance(s27).
-seance(s28).*/
 % Dates :
 % -------
 
@@ -196,7 +166,6 @@ incompatibiliteSymetrique(X,Y):- % évite la boucle infinie
 	estIncompatible(Y,X).
 
 % Usage des salles :
-
 usageSalle(a1, cm).
 usageSalle(a1, ds).
 usageSalle(d117, cm).
@@ -215,67 +184,6 @@ usageSalle(anglais,anglais).
 usageSalle(nautilus,td).
 usageSalle(nautilus,cm).
 
-% Enseignant - Matière :
-/*enseigne(mgelgon, traitementimg).
-enseigne(jpguedon, traitementimg).
-enseigne(hlecapitaine, projetia).
-enseigne(graschia, projetia).
-enseigne(bparrein, projetia).
-enseigne(fleman, projetia).
-enseigne(rlehn, reseaux3).
-enseigne(cgoncalves, comptabilite).
-enseigne(fbigeard, gestionconnaissances).
-enseigne(pkuntz, optimetaheuristiques).*/
-
-% Matière - Groupe d'élèves :
-/*etudie(silr1, traitementimg).
-etudie(silr2, traitementimg).
-etudie(silr1, projetia).
-etudie(silr2, projetia).
-etudie(id4, projetia).
-etudie(info4, projetia).
-etudie(silr1, reseaux3).
-etudie(silr2, reseaux3).
-etudie(id4, comptabilite).
-etudie(silr1, ptrans).
-etudie(silr2, ptrans).
-etudie(id4, ptrans).
-etudie(info4, ptrans).
-etudie(id4, gestionconnaissances).
-etudie(silr1, optimetaheuristiques).
-etudie(silr2, optimetaheuristiques).
-etudie(id4, optimetaheuristiques).
-etudie(info4, optimetaheuristiques).*/
-
-% Seance (id) - Type de cours :
-/*typeSeance(s1, ds).
-typeSeance(s2, tp).
-typeSeance(s3, tp).
-typeSeance(s4, tp).
-typeSeance(s5, tp).
-typeSeance(s6, tp).
-typeSeance(s7, tp).
-typeSeance(s8, cm).
-typeSeance(s9, tp).
-typeSeance(s10, tp).
-typeSeance(s11, tp).
-typeSeance(s12, ds).
-typeSeance(s13, tp).
-typeSeance(s14, tp).
-typeSeance(s15, cm).
-typeSeance(s16, projet).
-typeSeance(s17, projet).
-typeSeance(s18, cm).
-typeSeance(s19, cm).
-typeSeance(s20, tp).
-typeSeance(s21, tp).
-typeSeance(s22, ds).
-typeSeance(s23, reunion).
-typeSeance(s24, tp).
-typeSeance(s25, tp).
-typeSeance(s26, tp).
-typeSeance(s27, tp).
-typeSeance(s28, tp).*/
 
 /* 
  Relation sur l'ordonnancement des scéances d'une même matière suivant
@@ -300,139 +208,19 @@ suitSeance(s25,s24,0,24).
 suitSeance(s27,s26,0,24).
 suitSeance(s28,s15,6,24).
 
-% Seance (id) - Groupe d'élèves :
-/*assiste(silr1,s1).
-assiste(silr2,s1).
-assiste(id4,s2).
-assiste(id4,s3).
-assiste(silr2,s4).
-assiste(silr2,s5).
-assiste(silr1,s6).
-assiste(silr1,s7).
-assiste(silr1,s8).
-assiste(silr2,s8).
-assiste(silr1,s9).
-assiste(silr2,s10).
-assiste(silr2,s11).
-assiste(id4,s12).
-assiste(silr1,s13).
-assiste(silr1,s14).
-assiste(silr1,s15).
-assiste(silr1,s16).
-assiste(silr2,s16).
-assiste(id4,s16).
-assiste(silr1,s17).
-assiste(silr2,s17).
-assiste(id4,s17).
-assiste(id4,s18).
-assiste(id4,s19).
-assiste(silr1,s20).
-assiste(silr1,s21).
-assiste(id4,s22).
-assiste(silr1,s22).
-assiste(silr2,s22).
-assiste(silr1,s23).
-assiste(silr2,s23).
-assiste(silr2,s24).
-assiste(silr2,s25).
-assiste(id4,s26).
-assiste(id4,s27).
-assiste(silr2,s28).*/
-% :-dynamic(assiste/2).
-
 assistent(Groupe,[]).
 assistent(Groupe,[T|Q]):-
 	assiste(Groupe,T),
 	assistent(Groupe,Q).
 
-/*assistent([],Groupe).
-assistent([X|Y],Groupe):-
-	assiste(X,Groupe),
-	assistent(Y,Groupe).*/
+% Génération dynamique des seances :
 
+% Les options (Espagnol, Anglais Renforcé) ne sont pas présentes
+% Les tiers temps ne sont également pas modélisées
 
-
-% Seance (id) - Enseignant :
-/*anime(s1,jpguedon).
-anime(s1,mgelgon).
-anime(s1,hlecapitaine).
-anime(s2,hlecapitaine).
-anime(s3,hlecapitaine).
-anime(s4,graschia).
-anime(s5,graschia).
-anime(s6,bparrein).
-anime(s6,fleman).
-anime(s7,bparrein).
-anime(s7,fleman).
-anime(s8,rlehn).
-anime(s9,bparrein).
-anime(s9,fleman).
-anime(s10,rlehn).
-anime(s10,fleman).
-anime(s11,rlehn).
-anime(s11,fleman).
-anime(s12,cgoncalves).
-anime(s13,hlecapitaine).
-anime(s14,hlecapitaine).
-anime(s15,rlehn).
-anime(s18,fbigeard).
-anime(s19,fbigeard).
-anime(s20,hlecapitaine).
-anime(s21,hlecapitaine).
-anime(s22,pkuntz).
-anime(s23,pdasilva).
-anime(s24,graschia).
-anime(s25,graschia).
-anime(s26,hlecapitaine).
-anime(s27,hlecapitaine).
-anime(s28,rlehn).
-anime(s28,fleman).*/
-
-/*anime(Seance,[]).
-anime(Seance,[X,Y]):-
-	anime(Seance,X),
-	anime(Seance,Y).*/
-
-
-
-% Seance - Matière :
-/*estEnseigne(s1, traitementimg).
-estEnseigne(s2, projetia).
-estEnseigne(s3, projetia).
-estEnseigne(s4, projetia).
-estEnseigne(s5, projetia).
-estEnseigne(s6, projetia).
-estEnseigne(s7, projetia).
-estEnseigne(s8, reseaux3).
-estEnseigne(s9, reseaux3).
-estEnseigne(s10, reseaux3).
-estEnseigne(s11, reseaux3).
-estEnseigne(s12, comptabilite).
-estEnseigne(s13, projetia).
-estEnseigne(s14, projetia).
-estEnseigne(s15, reseaux3).
-estEnseigne(s16, ptrans).
-estEnseigne(s17, ptrans).
-estEnseigne(s18, gestionconnaissances).
-estEnseigne(s19, gestionconnaissances).
-estEnseigne(s20, projetia).
-estEnseigne(s21, projetia).
-estEnseigne(s22, optimetaheuristiques).
-estEnseigne(s23, hyblab).
-estEnseigne(s24, projetia).
-estEnseigne(s25, projetia).
-estEnseigne(s26, projetia).
-estEnseigne(s27, projetia).
-estEnseigne(s28, reseaux3).*/
-
-% Contrainte de l'ordonnancement des matières :
-precedeMatiere(projetia,traitementimg).
-precedeMatiere(ia,projetia).
-precedeMatiere(analysedonnees,optimetaheuristiques).
-
-
-
-
+/*
+1. Création de listes de séances associés à une matière, un type de cours, une liste de groupes, une liste d'enseignant
+*/
 seances(multimedia, cm, [id4], [jpguedon],
 	[s1,s6,s29,s63,s64]).
 seances(multimedia, tp, [id4], [mgelgon],
@@ -530,16 +318,8 @@ seances(sport,sport, [id4,silr1,silr2], [profSport],
 seances(ptrans,ptrans, [id4,silr1,silr2], [profPtrans],
 	[s67,s68]).
 
-% Les options (Espagnol, Anglais Renforcé) ne sont pas présentes ainsi que les cours de Français
-% Les tiers temps ne sont pas comptabilisés
 
-
-/*:-dynamic(anime/2).
-:-dynamic(seance/1).
-:-dynamic(estEnseigne/2).
-:-dynamic(anime/2).
-:-dynamic(anime/2).
-:-dynamic(anime/2).*/
+% 2. Génération dynamique avec des assert :
 
 :-dynamic(seance/1).
 :-dynamic(estEnseigne/2).
@@ -548,9 +328,6 @@ seances(ptrans,ptrans, [id4,silr1,silr2], [profPtrans],
 :-dynamic(etudie/2).
 :-dynamic(assiste/2).
 :-dynamic(typeSeance/2).
-
-
-
 
 creerSeances(Matiere,Type,Groupes,Profs,[]).
 creerSeances(Matiere, Type,Groupes, Profs, [Seance|Y]):-
@@ -582,7 +359,6 @@ creerSeances(Matiere, Type,Groupes, Profs, [Seance|Y]):-
         creerSeances(Matiere,Type,Groupes,Profs,Seances)
     )
 ).
-
 
 /*calculIndicateur(Seance,Result):-
 	suitSeance(Seance,Y)

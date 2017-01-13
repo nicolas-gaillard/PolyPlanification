@@ -34,6 +34,29 @@ differencePlage(P1, J1, M1, P2, J2, M2, Result) :-
 	NbPlage2 is P2 + J2*TotalPlage + M2*TotalPlage*TotalMois,
 	Result is NbPlage1 - NbPlage2.
 
+/*suitSeanceR(Seance,Compteur,Indicateur):-
+	\+suitSeance(Seance,Y,_,_);
+	suitSeance(Seance,Y,_,_),
+	Indicateur is Compteur 	+ 1, 
+	suitSeanceR(Y,Indicateur,Z).*/
+
+
+/*indicePriorite(S, 0) :- \+ suitSeance(S,_,_,_).
+indicePriorite(S, N) :- suitSeance(S, Y,_,_), indicePriorite(Y, N1), N is N1 +1.
+
+
+triIndice(>, indicePriorite(_,Indicateur1),indicePriorite(_,Indicateur2)) :-
+        Indicateur1>Indicateur2.
+
+
+triIndice(<, indicePriorite(_,Indicateur1),indicePriorite(_,Indicateur2)) :-
+        Indicateur1<Indicateur2.
+
+triIndice(=, indicePriorite(_,Indicateur1),indicePriorite(_,Indicateur2)) :-
+        Indicateur1=Indicateur2.
+
+predsort(triIndice,ListeSeances,ListeTriee).*/
+
 % -------------
 % Contraintes :
 % -------------
@@ -241,26 +264,3 @@ faire_planification():-
 
 % Statistiques de l'execution du prédicat :
 run() :- profile(faire_planification([])).
-
-/*suitSeanceR(Seance,Compteur,Indicateur):-
-	\+suitSeance(Seance,Y,_,_);
-	suitSeance(Seance,Y,_,_),
-	Indicateur is Compteur 	+ 1, 
-	suitSeanceR(Y,Indicateur,Z).*/
-
-
-/*indicePriorite(S, 0) :- \+ suitSeance(S,_,_,_).
-indicePriorite(S, N) :- suitSeance(S, Y,_,_), indicePriorite(Y, N1), N is N1 +1.
-
-
-triIndice(>, indicePriorite(_,Indicateur1),indicePriorite(_,Indicateur2)) :-
-        Indicateur1>Indicateur2.
-
-
-triIndice(<, indicePriorite(_,Indicateur1),indicePriorite(_,Indicateur2)) :-
-        Indicateur1<Indicateur2.
-
-triIndice(=, indicePriorite(_,Indicateur1),indicePriorite(_,Indicateur2)) :-
-        Indicateur1=Indicateur2.
-
-predsort(triIndice,ListeSeances,ListeTriee).*/
