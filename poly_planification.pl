@@ -34,28 +34,22 @@ differencePlage(P1, J1, M1, P2, J2, M2, Result) :-
 	NbPlage2 is P2 + J2*TotalPlage + M2*TotalPlage*TotalMois,
 	Result is NbPlage1 - NbPlage2.
 
-/*suitSeanceR(Seance,Compteur,Indicateur):-
-	\+suitSeance(Seance,Y,_,_);
-	suitSeance(Seance,Y,_,_),
-	Indicateur is Compteur 	+ 1, 
-	suitSeanceR(Y,Indicateur,Z).*/
-
-
-/*indicePriorite(S, 0) :- \+ suitSeance(S,_,_,_).
+%calcul l'indice de priorité d'une séance suivant les séances qui la précède
+indicePriorite(S, 0) :- \+ suitSeance(S,_,_,_).
 indicePriorite(S, N) :- suitSeance(S, Y,_,_), indicePriorite(Y, N1), N is N1 +1.
 
+%règles pour le predsort
+triIndice(<, Seance1, Seance2) :- indicePriorite(Seance1, N1), indicePriorite(Seance2, N2), N1 < N2.
+triIndice(>, Seance1, Seance2) :- indicePriorite(Seance1, N1), indicePriorite(Seance2, N2), N1 > N2.
+triIndice(>, Seance1, Seance2) :- indicePriorite(Seance1, N1), indicePriorite(Seance2, N2), N1 = N2.
 
-triIndice(>, indicePriorite(_,Indicateur1),indicePriorite(_,Indicateur2)) :-
-        Indicateur1>Indicateur2.
+% -----------------------------------------------------------------
+% Remarque : sur la dernière ligne de triIndice 
+% on devrait avoir = et non > mais pour une raison qui nous échappe
+% cela ne marche pas (mais aucune incidence si on met >)
+% -----------------------------------------------------------------
 
 
-triIndice(<, indicePriorite(_,Indicateur1),indicePriorite(_,Indicateur2)) :-
-        Indicateur1<Indicateur2.
-
-triIndice(=, indicePriorite(_,Indicateur1),indicePriorite(_,Indicateur2)) :-
-        Indicateur1=Indicateur2.
-
-predsort(triIndice,ListeSeances,ListeTriee).*/
 
 % -------------
 % Contraintes :
@@ -204,13 +198,6 @@ ecrireSolution([T|Q]):-
 	ecrireSolution(T),
 	ecrireSolution(Q).
 
-indicePriorite(S, 0) :- \+ suitSeance(S,_,_,_).
-indicePriorite(S, N) :- suitSeance(S, Y,_,_), indicePriorite(Y, N1), N is N1 +1.
-
-
-triIndice(<, Seance1, Seance2) :- indicePriorite(Seance1, N1), indicePriorite(Seance2, N2), N1 < N2.
-triIndice(>, Seance1, Seance2) :- indicePriorite(Seance1, N1), indicePriorite(Seance2, N2), N1 > N2.
-triIndice(>, Seance1, Seance2) :- indicePriorite(Seance1, N1), indicePriorite(Seance2, N2), N1 = N2.
 
 % ------------------------------
 % Algorithme de plannification :
@@ -256,7 +243,6 @@ planifier(ListeSeances,Solution):-
 faire_planification(Solution):-
 	makeSeances(ListeSeances),
 	predsort(triIndice,ListeSeances,ListeTriee),
-	%write(ListeTriee).
 	planifier(ListeTriee,Solution).
 
 faire_planification():-
