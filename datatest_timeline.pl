@@ -434,7 +434,7 @@ precedeMatiere(analysedonnees,optimetaheuristiques).
 seances(multimedia, cm, [id4], [jpguedon],
 	[s1,s6]).
 
-/*
+
 seances(multimedia, cm, [id4], [jpguedon],
 	[s1,s6,s29,s63,s64]).
 seances(multimedia, tp, [id4], [mgelgon],
@@ -521,16 +521,16 @@ seances(patrons,cm, [id4,silr1,silr2], [apigeau],
 	[s55,s66,s71]).
 
 
-seances(anglais,td, [id4,silr1,silr2], [profAnglais],
+seances(anglais,anglais, [id4,silr1,silr2], [profAnglais],
 	[s56]).
 
 
-seances(sport,td, [id4,silr1,silr2], [profSport],
+seances(sport,sport, [id4,silr1,silr2], [profSport],
 	[s59]).
 
 
 seances(ptrans,ptrans, [id4,silr1,silr2], [profPtrans],
-	[s67,s68]).*/
+	[s67,s68]).
 
 % Les options (Espagnol, Anglais Renforcé) ne sont pas présentes ainsi que les cours de Français
 % Les tiers temps ne sont pas comptabilisés
